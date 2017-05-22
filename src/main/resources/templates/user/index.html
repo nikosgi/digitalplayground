@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:replace="fragments :: head"></head>
+<body class = "container">
+<h1 th:text="${title}">Default Title</h1>
+<nav th:replace="fragments :: navigation"></nav>
+
+<p th:unless="${user}">no users yet</p>
+
+<ul>
+    <li th:each="user : ${users}" th:text="${user.name}"></li>
+</ul>
+
+</body>
+</html>
