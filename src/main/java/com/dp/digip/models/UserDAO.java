@@ -15,33 +15,22 @@ public interface UserDAO extends CrudRepository<User, Long> {
 
     /**
      * Return the user having the passed email or null if no user is found.
-     *
-     * @param email the user email.
      */
-    public User findByEmail(String email);
 
-    // ------------------------
-    // PUBLIC METHODS
-    // ------------------------
+    User user(String username, String pass_hash, String salt, Integer type_user);
 
-    User user();
-
-    User user(long id);
-
-    User user(String email, String name);
-
-    // Getter and setter methods
+    //GETTERS
 
     long getId();
+    String getUsername();
+    String getPass_hash();
+    Integer getType_user();
+    String getSalt();
 
+    //SETTERS
     void setId(long value);
-
-    String getEmail();
-
-    void setEmail(String value);
-
-    String getName();
-
-    void setName(String value);
-
+    void setUsername(String value);
+    void setPass_hash();
+    void setType_user();
+    void setSalt();
 }

@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
  * @author netgloo
  */
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
 
     // ------------------------
@@ -30,56 +30,66 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    // The user's email
-    @NotNull
-    private String email;
-
     // The user's name
     @NotNull
-    private String name;
+    private String username;
 
     @NotNull
-    private String pass;
+    private String pass_hash;
+
+    @NotNull
+    private String salt;
+
+    @NotNull
+    private Integer type_user;
 
 
-    // ------------------------
-    // PUBLIC METHODS
-    // ------------------------
 
-    public User() { }
 
-    public User(long id) {
-        this.id = id;
+    public User(String username, String pass_hash, String salt, Integer type_user) {
+        this.username = username;
+        this.pass_hash = pass_hash;
+        this.salt = salt;
+        this.type_user = type_user;
     }
 
-    public User(String email, String name) {
-        this.email = email;
-        this.name = name;
-    }
-
-    // Getter and setter methods
-
+    //GETTERS
     public long getId() {
         return id;
     }
 
+    public String getPass_hash() {
+        return pass_hash;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public Integer getType_user(){return type_user;}
+
+    public String getSalt(){return salt;}
+
+
+    //SETTERS
     public void setId(long value) {
         this.id = value;
     }
 
-    public String getEmail() {
-        return email;
+    public void setPass_hash(String pass_hash1) {
+        //TODO: encrypt the passed argument first
+        this.pass_hash = pass_hash1;
     }
 
-    public void setEmail(String value) {
-        this.email = value;
+    public void setUsername(String username1) {
+        this.username = username1;
     }
 
-    public String getName() {
-        return name;
+    public void setType_user(Integer type_user1){
+        this.type_user = type_user1;
     }
 
-    public void setName(String value) {
-        this.name = value;
+    public void setSalt(String salt1){
+        this.salt = salt1;
     }
 }
