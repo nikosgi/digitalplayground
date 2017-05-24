@@ -38,6 +38,10 @@ public class User {
     @NotNull
     private String name;
 
+    @NotNull
+    private String pass;
+
+
     // ------------------------
     // PUBLIC METHODS
     // ------------------------
@@ -78,5 +82,4 @@ public class User {
     public void setName(String value) {
         this.name = value;
     }
-
-} // class U
+}
