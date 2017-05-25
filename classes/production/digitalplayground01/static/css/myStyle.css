@@ -1,0 +1,83 @@
+body {
+    background-image: url("../img/background.jpg");
+    background-position: center bottom;
+    background-size: 90% auto;
+	background-repeat: no-repeat;
+
+}
+.logo{
+	margin-bottom: 0;
+}
+
+#navbar-MyColor.navbar-inverse { /* #006633 - #009933 */
+    background-color: #01579b;
+	border: 2px solid #000000;
+}
+
+/* Remove the navbar's default rounded borders and increase the bottom margin */ 
+.navbar {
+	margin-bottom: 1px;
+	border-radius: 25;
+	
+}
+
+hr.style12 {
+	height: 6px;
+	background: url(http://ibrahimjabbari.com/english/images/hr-12.png) repeat-x 0 0;
+    border: 0;
+}
+
+div.cheat{
+	padding-bottom: 70px;
+}
+
+/* Remove the jumbotron's default bottom margin */ 
+.jumbotron {
+	margin-bottom: 0;
+}
+
+/* Add a gray background color and some padding to the footer */
+footer {
+	opacity: 0.8; 
+	background-color: #f2f2f2;
+	padding: 10px;
+	margin-top:35px;
+}
+
+
+.li-myli {
+	position:relative;
+    width: 50%;
+	top: 10px;
+}
+
+.background1 {
+	background-image: url(5.jpeg);
+    background-position: left top;
+    background-repeat: repeat;
+}
+.background2 {
+	background-image: url(Screenshot_46.png);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.h3-font {
+	font-family: 'Finger Paint', cursive;
+}
+
+.h4-font {
+	font-family: 'Finger Paint', cursive;
+}
+
+
+.active-white {
+	background-color: #ffffff;
+}
+
+.panel-mycolour {
+    background-color: #01579b;
+    color:  #f2f2f2;
+
+}
+

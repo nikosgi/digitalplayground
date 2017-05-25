@@ -21,8 +21,6 @@ public class Parent {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @NotNull
-    private String email;
 
     @NotNull
     private String name;
@@ -32,6 +30,9 @@ public class Parent {
 
     @NotNull
     private String fathers_name;
+
+    @NotNull
+    private String email;
 
     @NotNull
     private String cellphone;

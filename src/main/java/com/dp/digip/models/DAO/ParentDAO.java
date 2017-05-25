@@ -1,4 +1,6 @@
-package com.dp.digip.models;
+package com.dp.digip.models.DAO;
+
+import com.dp.digip.models.Parent;
 
 import java.sql.Blob;
 

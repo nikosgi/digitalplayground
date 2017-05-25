@@ -1,4 +1,6 @@
-package com.dp.digip.models;
+package com.dp.digip.models.DAO;
+
+import com.dp.digip.models.Provider;
 
 import java.sql.Blob;
 
@@ -8,9 +10,9 @@ import java.sql.Blob;
 public interface ProviderDAO {
 
     Provider provider(String sector_type, String brand_name, String distinctive_title, String tax_identification_number,
-            String public_finance_agency, String country, String address, String address_number, String postal_code,
-            String region, String municipality, String legal_represantation, String legal_represantation_phone, String legal_represantation_email,
-            Blob participation_certificate, Blob identification_document, Blob avatar);
+                      String public_finance_agency, String country, String address, String address_number, String postal_code,
+                      String region, String municipality, String legal_represantation, String legal_represantation_phone, String legal_represantation_email,
+                      Blob participation_certificate, Blob identification_document, Blob avatar);
 
 
     //SETTERS

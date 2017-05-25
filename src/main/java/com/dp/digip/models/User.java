@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
  * @author netgloo
  */
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
     // ------------------------
@@ -30,66 +30,109 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    // The user's name
-    @NotNull
-    private String username;
+//    // The user's name
+//    @NotNull
+//    private String username;
+//
+//    @NotNull
+//    private String pass_hash;
+//
+//    @NotNull
+//    private String salt;
+//
+//    @NotNull
+//    private Integer type_user;
 
     @NotNull
-    private String pass_hash;
+    private String name;
 
     @NotNull
-    private String salt;
-
-    @NotNull
-    private Integer type_user;
+    private String email;
 
 
 
-
-    public User(String username, String pass_hash, String salt, Integer type_user) {
-        this.username = username;
-        this.pass_hash = pass_hash;
-        this.salt = salt;
-        this.type_user = type_user;
-    }
+//    public User(String username, String pass_hash, String salt, Integer type_user) {
+//        this.username = username;
+//        this.pass_hash = pass_hash;
+//        this.salt = salt;
+//        this.type_user = type_user;
+//    }
 
     //GETTERS
+//    public long getId() {
+//        return id;
+//    }
+//
+//    public String getPass_hash() {
+//        return pass_hash;
+//    }
+//
+//    public String getUsername() {
+//        return username;
+//    }
+//
+//    public Integer getType_user(){return type_user;}
+//
+//    public String getSalt(){return salt;}
+//
+//
+//    //SETTERS
+//    public void setId(long value) {
+//        this.id = value;
+//    }
+//
+//    public void setPass_hash(String pass_hash1) {
+//        //TODO: encrypt the passed argument first
+//        this.pass_hash = pass_hash1;
+//    }
+//
+//    public void setUsername(String username1) {
+//        this.username = username1;
+//    }
+//
+//    public void setType_user(Integer type_user1){
+//        this.type_user = type_user1;
+//    }
+//
+//    public void setSalt(String salt1){
+//        this.salt = salt1;
+//    }
+    public User() { }
+
+    public User(long id) {
+        this.id = id;
+    }
+
+    public User(String email, String name) {
+        this.email = email;
+        this.name = name;
+    }
+
+    // Getter and setter methods
+
     public long getId() {
         return id;
     }
 
-    public String getPass_hash() {
-        return pass_hash;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public Integer getType_user(){return type_user;}
-
-    public String getSalt(){return salt;}
-
-
-    //SETTERS
     public void setId(long value) {
         this.id = value;
     }
 
-    public void setPass_hash(String pass_hash1) {
-        //TODO: encrypt the passed argument first
-        this.pass_hash = pass_hash1;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username1) {
-        this.username = username1;
+    public void setEmail(String value) {
+        this.email = value;
     }
 
-    public void setType_user(Integer type_user1){
-        this.type_user = type_user1;
+    public String getName() {
+        return name;
     }
 
-    public void setSalt(String salt1){
-        this.salt = salt1;
+    public void setName(String value) {
+        this.name = value;
     }
+
+
 }

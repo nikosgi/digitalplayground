@@ -4,7 +4,7 @@ package com.dp.digip.controllers;
  * Created by Nikos on 21/5/2017.
  */
 import com.dp.digip.models.User;
-import com.dp.digip.models.UserDAO;
+import com.dp.digip.models.DAO.UserDAO;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
