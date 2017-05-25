@@ -22,4 +22,21 @@ public class MainController {
         return "index";
     }
 
+    @Controller
+    public class SignupController {
+        @RequestMapping(value = "/signup_parent")
+        public String listGifs(){
+
+            return "signup_parent";
+        }
+    }
+
+    @Controller
+    public class UnderConstructionController {
+        @RequestMapping(value = "/under_construction")
+        public String listGifs(){
+
+            return "under_construction";
+        }
+    }
 }
