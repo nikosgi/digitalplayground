@@ -3,8 +3,12 @@ package com.dp.digip.controllers;
 /**
  * Created by Nikos on 21/5/2017.
  */
+import com.dp.digip.models.DAO.EventDAO;
+import com.dp.digip.models.DAO.UserDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
@@ -17,17 +21,26 @@ public class MainController {
     @Value("${welcome.message:test}")
     private String message = "Hello World";
 
+
+    @Autowired
+    private EventDAO eventDao;
+
+    @Autowired
+    private UserDAO userDao;
+
     @RequestMapping("/")
-    public String welcome(Map<String, Object> model) {
+    public String welcome(Model model) {
+        model.addAttribute("events",eventDao.findAll());
+        model.addAttribute("imgUrl", "http://localhost:8080/event/image/");
         return "index";
     }
 
     @Controller
     public class SignupController {
-        @RequestMapping(value = "/signup_parent")
+        @RequestMapping(value = "/login")
         public String listGifs(){
 
-            return "signup_parent";
+            return "login";
         }
     }
 

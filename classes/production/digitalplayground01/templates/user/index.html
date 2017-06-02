@@ -6,12 +6,12 @@
 <h1 th:text="${title}">Default Title</h1>
 <nav th:replace="fragments :: navigation"></nav>
 
-<br><br>
-<p th:unless="${users}">No users yet added in the DataBase</p>
+
+<p th:unless="${users} and ${users.size()}">No users yet added in the DataBase</p>
 
 <table>
     <tr>
-        <th>User Name</th>
+        <th>Name</th>
         <th>Email</th>
     </tr>
     <tr th:each="user : ${users}">
@@ -20,6 +20,7 @@
     </tr>
 
 </table>
+
 
 </body>
 </html>

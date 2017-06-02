@@ -5,14 +5,16 @@ package com.dp.digip.models.DAO;
  */
 import javax.transaction.Transactional;
 
-import com.dp.digip.models.User;
+import com.dp.digip.models.Event;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 
 @Repository
 @Transactional
-public interface UserDAO extends CrudRepository<User, Long> {
-    User findByUsername(String username);
+public interface EventDAO extends CrudRepository<Event, Long> {
+
+
+
 
 }

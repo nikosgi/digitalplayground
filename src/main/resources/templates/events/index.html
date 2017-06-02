@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:replace="fragments :: head"></head>
+<body class = "container">
+<h1 th:text="${title}">Default Title</h1>
+<nav th:fragment="navigation">
+    <a href="/event">List events</a>
+    <a href="/event/add">Add event</a>
+</nav>
+
+
+<p th:unless="${events} and ${events.size()}">No users yet added in the DataBase</p>
+
+
+
+<div th:each="event : ${events}">
+    <div th:text="${event.name}"></div>
+    <img th:src="@{${imgUrl+event.id}}"/>
+</div>
+
+
+</body>
+</html>

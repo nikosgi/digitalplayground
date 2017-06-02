@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/navbar.css}"/>
+    <link rel="stylesheet" th:href="@{/css/login.css}"/>
+    <!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>-->
+    <link href="https://fonts.googleapis.com/css?family=Finger+Paint" rel="stylesheet"/>
+    <title>Digital Playground</title>
+
+</head>
+
+
+<body class="main">
+<div class="background">
+    <nav th:replace="navbar :: navigation"></nav>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="login-window">
+                    <form class="login">
+                        <input type="text" placeholder="Username" />
+                        <input type="password" placeholder="Password" />
+                        <input type="submit" value="Sign In" class="btn btn-primary btn-sm" />
+                        <div class="remember-forgot">
+                            <div class="row">
+                                <div class ="col-xs-6">
+                                    <div class ="checkbox">
+                                        <label>
+                                            <input type="checkbox" />
+                                            Remember Me
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class ="col-xs-6 forgot-pass-content">
+                                    <a href="javascript:void(0)" class="forgot-pass">Forgot Password</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="posted-by">Posted By: <a href="http://www.m-techweb.com">M-techweb</a></div>
+    </div>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+</body>
+
+
+</html>

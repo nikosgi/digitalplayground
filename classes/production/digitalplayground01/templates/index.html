@@ -3,111 +3,118 @@
 <head>
 
     <meta charset="utf-8"/>
-    <link rel="shortcut icon" th:href="@{/img/icon.ico}"/>
-    <link rel="stylesheet" th:href="@{/css/myStyle.css}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/navbar.css}"/>
+    <link rel="stylesheet" th:href="@{/css/index.css}"/>
+    <!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>-->
     <link href="https://fonts.googleapis.com/css?family=Finger+Paint" rel="stylesheet"/>
     <title>Digital Playground</title>
 
-    <style>
-        body {
-            font-family: 'Finger Paint', cursive;
-        }
-    </style>
-
 </head>
-<body>
-
-    <div th:replace="fragments/header :: header"></div>
 
 
+<body class="main">
+<div class="background">
+    <nav th:replace="navbar :: navigation"></nav>
 
-    <div class="container text-center logo"></div>
 
-
-
-    <div class="col-sm-1 verticalLine background1" ></div>
-    <div class="col-sm-10 background1">
-
-        <div class="container-fluid" style="max-width:1400px;margin-top:30px">
-
-            <div class="w3-row">
-                <div class="w3-col w3-container m3 "></div>
-                <div class="w3-col w3-container m6 ">
-                    <div class="panel panel-primary">
-                        <div class="panel-body">
-                            <form action="/singup.php">
-                                <div class="form-group">
-                                    <h3 class="h3-font" style="text-align:center;">Login</h3>
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Email:</label>
-                                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="pwd">Password:</label>
-                                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd"/>
-                                </div>
-                                <div class="checkbox">
-                                    <label><input type="checkbox" name="remember"/> Remember me</label>
-                                </div>
-                                <button type="submit" class="btn btn-default">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="w3-col w3-container m3 "></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2">
+                <p>hi</p>
             </div>
-            <div class="w3-row">
-                <div class="w3-col w3-container m3 "></div>
-                <div class="w3-col w3-container m6 ">
-                    <div class="panel panel-primary">
-                        <div class="panel-body">
-                            <h3 class="h3-font" style="text-align:center;">Sing up</h3>
-                            <p align="center">
-                                <img th:src="@{/img/new_game.png}" class="img-responsive" style="width:30%;" alt="Image"/>
-                                <br/>
-                                <a href="/signup_parent">
-                                    <span style="font-size: large;">As a Parent</span>
-                                </a>
-                                <br/>
-                                <a href="/under_construction">
-                                    <span style="font-size: large; ">As a Supplier</span>
-                                </a>
-                                <br/>
-                                <br/>
+            <div class="col-xs-8">
+                <p>hi2</p>
 
+                <div class="row">
+                    <div th:each="event : ${events}" class="col-md-4 xd-6">
+                        <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                            <p style="text-align:center; margin-top:20px;">
+                                <img th:src="@{${imgUrl+event.id}}"/>
                             </p>
+                            <div class="caption">
+                                <div class="blur"></div>
+                                <div class="caption-text">
+                                    <h3 th:text="${event.name}" style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">THIS IS</h3>
+                                    <p th:text="${event.description}">Default Text</p>
+                                    <a class="btn btn-default" href="#"><span class="glyphicon glyphicon-plus"> INFO</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 xs-6">
+                        <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                            <p style="text-align:center; margin-top:20px;">
+                                <img src="http://trovacamporella.com/img/trovacamporella-fiat500.png" class="img-responsive" alt=""/>
+                            </p>
+                            <div class="caption">
+                                <div class="blur"></div>
+                                <div class="caption-text">
+                                    <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">THIS IS H3</h3>
+                                    <p>Loren ipsum dolor si amet ipsum dolor si amet ipsum dolor...</p>
+                                    <a class=" btn btn-default" href="http://trovacamporella.com"><span class="glyphicon glyphicon-plus"> INFO</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 xs-6">
+                        <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                            <p style="text-align:center; margin-top:20px;">
+                                <img src="http://trovacamporella.com/img/trovacamporella-fiat500.png" class="img-responsive" alt=""/>
+                            </p>
+                            <div class="caption">
+                                <div class="blur"></div>
+                                <div class="caption-text">
+                                    <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">THIS IS H3</h3>
+                                    <p>Loren ipsum dolor si amet ipsum dolor si amet ipsum dolor...</p>
+                                    <a class=" btn btn-default" href="http://trovacamporella.com"><span class="glyphicon glyphicon-plus"> INFO</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 xs-6">
+                        <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                            <p style="text-align:center; margin-top:20px;">
+                                <img src="http://trovacamporella.com/img/trovacamporella-fiat500.png" class="img-responsive" alt=""/>
+                            </p>
+                            <div class="caption">
+                                <div class="blur"></div>
+                                <div class="caption-text">
+                                    <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">THIS IS H3</h3>
+                                    <p>Loren ipsum dolor si amet ipsum dolor si amet ipsum dolor...</p>
+                                    <a class=" btn btn-default" href="http://trovacamporella.com"><span class="glyphicon glyphicon-plus"> INFO</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 xs-6">
+                        <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                            <p style="text-align:center; margin-top:20px;">
+                                <img src="http://trovacamporella.com/img/trovacamporella-fiat500.png" class="img-responsive" alt=""/>
+                            </p>
+                            <div class="caption">
+                                <div class="blur"></div>
+                                <div class="caption-text">
+                                    <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">THIS IS H3</h3>
+                                    <p>Loren ipsum dolor si amet ipsum dolor si amet ipsum dolor...</p>
+                                    <a class=" btn btn-default" href="http://trovacamporella.com"><span class="glyphicon glyphicon-plus"> INFO</span></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="w3-col w3-container m3 "></div>
             </div>
-
-            <div id="includedFooter"></div>
+            <div class="col-xs-2">
+                <p>hi3</p>
+            </div>
         </div>
+
     </div>
-
-
-
-    <div>
-    <!-- Footer -->
-    <footer th:replace="fragments/footer :: footer">
-        <p>Copyright  2017</p>
-    </footer>
 </div>
-<br/>
-
-
-
-<script> th:src="@{/js/accordion.js}"</script>
-<script> th:src="@{/js/smallscreen.js}"</script>
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 </body>
+
+
 </html>
