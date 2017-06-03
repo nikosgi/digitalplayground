@@ -6,7 +6,7 @@ package com.dp.digip.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Blob;
-
+import java.io.Serializable;
 /**
  * An entity User composed by three fields (id, email, name).
  * The Entity annotation indicates that this class is a JPA entity.
@@ -15,8 +15,8 @@ import java.sql.Blob;
  * @author netgloo
  */
 @Entity
-@Table(name = "eventest")
-public class Event {
+@Table(name = "event")
+public class Event implements Serializable{
 
     // ------------------------
     // PRIVATE FIELDS

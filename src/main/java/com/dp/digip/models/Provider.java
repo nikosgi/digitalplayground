@@ -11,10 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.sql.Blob;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "provider")
-public class Provider {
+public class Provider implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -7,7 +7,7 @@ package com.dp.digip.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
-
+import java.io.Serializable;
 /**
  * An entity User composed by three fields (id, email, name).
  * The Entity annotation indicates that this class is a JPA entity.
@@ -16,8 +16,8 @@ import java.util.Set;
  * @author netgloo
  */
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "user")
+public class User implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,9 +25,6 @@ public class User {
 
     @NotNull
     private  String password;
-
-    @NotNull
-    private String passwordConfirm;
 
     @NotNull
     private String name;
@@ -38,8 +35,10 @@ public class User {
     @NotNull
     private String email;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Role role;
 
-    private Set<Role> roles;
 
     public User() { }
 
@@ -84,24 +83,14 @@ public class User {
     public void setUsername(String value) {
         this.username = value;
     }
+        
 
-    @Transient
-    public String getPasswordConfirm() {
-        return passwordConfirm;
+    public Role getRole(){
+	return this.role;
     }
 
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
-    }
-
-    @ManyToMany
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role1){
+	this.role = role1;
     }
 
 }

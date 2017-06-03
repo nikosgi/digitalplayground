@@ -3,13 +3,14 @@ package com.dp.digip.models;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "role")
-public class Role {
+public class Role implements Serializable{
     private Long id;
     private String name;
-    private HashSet<User> users;
+    private int role;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,12 +30,11 @@ public class Role {
         this.name = name;
     }
 
-    @ManyToMany(mappedBy = "roles")
-    public HashSet<User> getUsers() {
-        return users;
+    public int getRole(){
+	return this.role;
     }
 
-    public void setUsers(HashSet<User> users) {
-        this.users = users;
-    }
-}
+    public void setRole(int role1){
+	this.role = role1;
+    }   
+} 

@@ -6,7 +6,6 @@ import com.dp.digip.models.User;
 import com.dp.digip.models.DAO.UserDAO;
 import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.lang.Iterable;
 import java.util.HashSet;
@@ -20,14 +19,12 @@ public class UserServiceImpl implements UserService {
     private UserDAO userRepository;
     @Autowired
     private RoleDAO roleRepository;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    //@Autowired
+    //private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public void save(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        Set<Role> roles = Sets.newHashSet(roleRepository.findAll());
-        user.setRoles(roles);
+	// we need to encrpyt the pass        
         userRepository.save(user);
     }
 
