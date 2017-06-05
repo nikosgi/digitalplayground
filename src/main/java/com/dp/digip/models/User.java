@@ -3,8 +3,8 @@ package com.dp.digip.models;
 /**
  * Created by Nikos on 21/5/2017.
  */
-
 import javax.persistence.*;
+
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 import java.io.Serializable;
@@ -20,25 +20,33 @@ import java.io.Serializable;
 public class User implements Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column( unique = true,nullable = false)
     private Long id;
 
-    @NotNull
+    @Column( unique = true,nullable = false)
     private  String password;
 
-    @NotNull
+    @Column( unique = true,nullable = false)
     private String name;
 
-    @NotNull
+    @Column( unique = true,nullable = false)
     private String username;
 
-    @NotNull
+    @Column( unique = true,nullable = false)
     private String email;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)  
     @PrimaryKeyJoinColumn
     private Role role;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Parent parent;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Provider provider;
 
     public User() { }
 
@@ -91,6 +99,22 @@ public class User implements Serializable{
 
     public void setRole(Role role1){
 	this.role = role1;
+    }
+
+    public Parent getParent(){
+	return this.parent;
+    }
+
+    public void setParent(Parent parent1){
+   	this.parent = parent;
+    }
+
+    public Provider getProvider(){
+	return this.provider;
+    }
+
+    public void setProvider(Provider provider1){
+	this.provider = provider1;
     }
 
 }
