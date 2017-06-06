@@ -1,7 +1,6 @@
 package com.dp.digip.service;
 
-import com.dp.digip.models.DAO.RoleDAO;
-import com.dp.digip.models.Role;
+
 import com.dp.digip.models.User;
 import com.dp.digip.models.DAO.UserDAO;
 import com.google.common.collect.Sets;
@@ -17,8 +16,8 @@ import static com.google.common.collect.Sets.*;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDAO userRepository;
-    @Autowired
-    private RoleDAO roleRepository;
+//    @Autowired
+  //  private RoleDAO roleRepository;
     //@Autowired
     //private BCryptPasswordEncoder bCryptPasswordEncoder;
 

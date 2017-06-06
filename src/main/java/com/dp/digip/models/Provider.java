@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Blob;
 import java.io.Serializable;
+import java.util.Set;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -15,16 +16,6 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @Table(name = "provider")
 public class Provider implements Serializable{
-
-
-    @Id
-    @Column(unique = true, nullable = false)
-    @GeneratedValue(generator="gen")
-    @GenericGenerator(name="gen", strategy="foreign", parameters={
-		@Parameter(name="property", value="user")
-	}
-    )
-    private long id;
 
     @Column(unique = true, nullable = false)
     private String sector_type;
@@ -77,8 +68,14 @@ public class Provider implements Serializable{
     @Column(unique = true)
     private Blob avatar;
 
-    @OneToOne(mappedBy="provider", cascade=CascadeType.ALL)
+    @Id
+    @OneToOne
+    @JoinColumn(name="id") 
     private User user;
+
+
+
+    public Provider() { }
 
     public Provider(String sector_type, String brand_name, String distinctive_title, String tax_identification_number,
                     String public_finance_agency, String country, String address, String address_number, String postal_code,

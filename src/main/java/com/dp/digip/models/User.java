@@ -20,33 +20,34 @@ import java.io.Serializable;
 public class User implements Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column( unique = true,nullable = false)
     private Long id;
 
     @Column( unique = true,nullable = false)
-    private  String password;
+    private  String password_hash;
 
     @Column( unique = true,nullable = false)
-    private String name;
+    private String salt;
 
     @Column( unique = true,nullable = false)
     private String username;
 
     @Column( unique = true,nullable = false)
     private String email;
-
-    @OneToOne(cascade = CascadeType.ALL)  
-    @PrimaryKeyJoinColumn
+    
+    @OneToOne(cascade=CascadeType.ALL, mappedBy="user") 
     private Role role;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(cascade=CascadeType.ALL, mappedBy="user")
     private Parent parent;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(cascade=CascadeType.ALL, mappedBy="user")
     private Provider provider;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Event> events;
+
 
     public User() { }
 
@@ -54,35 +55,57 @@ public class User implements Serializable{
         this.id = id;
     }
 
-    public User(String email, String name) {
+    public User(String email,String salt,String username,String password_hash,Role role) {
         this.email = email;
-        this.name = name;
+        this.username = username;
+        this.salt = salt;
+        this.password_hash = password_hash;
+
+        this.role = role;
+        this.role.setUser(this);
     }
+
+    public User(String email,String salt,String username,String password_hash,Role role,Provider provider) {
+        this.email = email;
+	this.username = username;
+	this.salt = salt;
+	this.password_hash = password_hash;
+	
+	this.role = role;
+	this.role.setUser(this);
+	
+	this.provider = provider;
+	this.provider.setUser(this);
+    }
+
+    public User(String email,String salt,String username,String password_hash,Role role,Parent parent) {
+        this.email = email;
+        this.username = username;
+        this.salt = salt;
+        this.password_hash = password_hash;
+
+        this.role = role;
+        this.role.setUser(this);
+
+        this.parent = parent;
+        this.parent.setUser(this);
+    }
+
+
 
     // Getter and setter methods
 
-    public String getPassword(){ return password;}
-    public void setPassword(String pass){ this.password = pass;}
+    public String getPassword_hash(){ return this.password_hash;}
+    public void setPassword_hash(String pass){ this.password_hash = pass;}
 
-    public long getId() {
-        return id;
-    }
-    public void setId(long value) {
-        this.id = value;
-    }
+    public String getSalt(){ return this.salt; }
+    public void setSalt(String salt) { this.salt = salt; }
 
     public String getEmail() {
         return email;
     }
     public void setEmail(String value) {
         this.email = value;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String value) {
-        this.name = value;
     }
 
     public String getUsername() {
@@ -116,5 +139,15 @@ public class User implements Serializable{
     public void setProvider(Provider provider1){
 	this.provider = provider1;
     }
+
+    public Set<Event> getEvents(){
+	return this.events;
+    }
+
+    public void setEvents(Set<Event> events){
+	this.events= events;
+    }
+	
+
 
 }

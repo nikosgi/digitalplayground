@@ -13,42 +13,18 @@ import org.hibernate.annotations.Parameter;
 @Table(name = "role")
 public class Role implements Serializable{
 
-
-    @Id
-    @Column(unique = true, nullable = false)
-    @GeneratedValue(generator="gen")
-    @GenericGenerator(name="gen", strategy="foreign", 
-	parameters={
-		@Parameter(name="property", value="user")
-	}
-    )
-    private Long id;
     
-    @Column(unique = true, nullable = false)
-    private String name;
-    
-    @Column(unique = true, nullable = false)
+    @Column(unique = false, nullable = false)
     private int role;
 
-    @OneToOne(mappedBy="role", cascade = CascadeType.ALL)
+    @Id
+    @OneToOne
+    @JoinColumn(name = "id")
     private User user;
 
+    public Role() { }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    public Role(int role){this.role = role; }  
 
     public int getRole(){
 	return this.role;

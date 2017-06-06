@@ -5,7 +5,8 @@ package com.dp.digip.controllers;
  */
 import com.dp.digip.models.User;
 import com.dp.digip.models.DAO.UserDAO;
-
+import com.dp.digip.models.Role;
+//import com.dp.digip.models.DAO.RoleDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,12 +16,16 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import static java.lang.System.out;
+
 @Controller
 @RequestMapping("user")
 public class UserController {
 
     @Autowired
     private UserDAO userDao;
+    //@Autowired
+    //private RoleDAO roleDao;
 
     @RequestMapping(value ="")
     public String index(Model model){
@@ -45,7 +50,17 @@ public class UserController {
             model.addAttribute("title","Add user");
             return "user/add";
         }
-        userDao.save(newUser);
+
+	out.println(newUser.getUsername());
+   	out.println(newUser.getPassword_hash());	
+	out.println(newUser.getEmail());
+	out.println(newUser.getSalt());
+	
+	User myUser = new User(newUser.getEmail(),newUser.getSalt(),newUser.getUsername(),newUser.getPassword_hash(),new Role(1) );
+	
+	userDao.save(myUser);	
+
+
         return "redirect:";
     }
 
