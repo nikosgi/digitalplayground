@@ -15,7 +15,7 @@ public class Role implements Serializable{
 
     
     @Column(unique = false, nullable = false)
-    private int role;
+    private String role;
 
     @Id
     @OneToOne
@@ -24,13 +24,13 @@ public class Role implements Serializable{
 
     public Role() { }
 
-    public Role(int role){this.role = role; }  
+    public Role(String role){this.role = role; }  
 
-    public int getRole(){
+    public String getRole(){
 	return this.role;
     }
 
-    public void setRole(int role1){
+    public void setRole(String role1){
 	this.role = role1;
     }   
 

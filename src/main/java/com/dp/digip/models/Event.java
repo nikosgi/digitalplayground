@@ -65,9 +65,9 @@ public class Event implements Serializable{
     	@Column( unique = false,nullable = false)
     	private String start_time;
 
-    	@Temporal(TemporalType.DATE)
-    	@Column( unique = false, nullable = false)
-   	private Date date;
+//    	@Temporal(TemporalType.DATE)
+//    	@Column( unique = false, nullable = false)
+//   	private Date date;
     
     	@Column( unique = false, nullable = true)
     	private String duration;
@@ -86,14 +86,14 @@ public class Event implements Serializable{
 
     	@Column ( unique = false , nullable = false)
     	private int ticket_number_remaining;
-
+*/
     	@Column( unique = false, nullable = true)
     	private String description;
 
     	@Lob
     	@Column(length=10000000 , nullable = true)	
     	private byte[] image;
-*/
+
 	@ManyToOne
 	@JoinColumn(name = "user_id",nullable = false, referencedColumnName="id")
 	private User user;
@@ -121,8 +121,8 @@ public class Event implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-/*
-	public String getCountry() {
+
+/*	public String getCountry() {
 		return country;
 	}
 
@@ -265,7 +265,7 @@ public class Event implements Serializable{
 	public void setTicket_number_remaining(int ticket_number_remaining) {
 		this.ticket_number_remaining = ticket_number_remaining;
 	}
-
+*/
 	public String getDescription() {
 		return description;
 	}
@@ -281,7 +281,7 @@ public class Event implements Serializable{
 	public void setImage(byte[] image) {
 		this.image = image;
 	}
-*/
+
 	public User getUser(){
 		return this.user;
 	}

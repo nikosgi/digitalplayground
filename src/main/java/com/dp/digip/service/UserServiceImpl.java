@@ -1,34 +1,37 @@
 package com.dp.digip.service;
 
-
 import com.dp.digip.models.User;
 import com.dp.digip.models.DAO.UserDAO;
-import com.google.common.collect.Sets;
+import com.dp.digip.models.Role;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import java.lang.Iterable;
+
+import static java.lang.System.out;
+
 import java.util.HashSet;
-import java.util.Set;
-import static com.google.common.collect.Sets.*;
 
 @Service
-
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserDAO userRepository;
-//    @Autowired
-  //  private RoleDAO roleRepository;
-    //@Autowired
-    //private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private UserDAO userDao;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public void save(User user) {
-	// we need to encrpyt the pass        
-        userRepository.save(user);
+        out.println("did i arrive here ?");
+	user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        out.println("arrived here");
+	user.setRole(new Role("admin"));
+	out.println("and here");
+	userDao.save(user);
     }
 
     @Override
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userDao.findByUsername(username);
     }
 }
+

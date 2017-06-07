@@ -49,11 +49,11 @@ public class UserController {
         }
 
 	out.println(newUser.getUsername());
-   	out.println(newUser.getPassword_hash());	
+   	out.println(newUser.getPassword());	
 	out.println(newUser.getEmail());
 	out.println(newUser.getSalt());
 	
-	User myUser = new User(newUser.getEmail(),newUser.getSalt(),newUser.getUsername(),newUser.getPassword_hash(),new Role(1) );
+	User myUser = new User(newUser.getEmail(),newUser.getSalt(),newUser.getUsername(),newUser.getPassword(),new Role("admin") );
 	
 	userDao.save(myUser);	
 

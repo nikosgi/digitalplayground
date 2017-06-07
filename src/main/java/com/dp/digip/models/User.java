@@ -28,19 +28,13 @@ public class User implements Serializable{
     @Column( unique = true,nullable = false)
     private Long id;
 
-
-    @NotNull
+    @Column( unique = true,nullable = false)
     private  String password;
 
-    @NotNull
-    private String name;
+    @Transient
+    private String password_confirmation;
 
-    @NotNull
-
-    @Column( unique = true,nullable = false)
-    private  String password_hash;
-
-    @Column( unique = true,nullable = false)
+    @Column( unique = true,nullable = true)
     private String salt;
 
     @Column( unique = true,nullable = false)
@@ -71,21 +65,21 @@ public class User implements Serializable{
         this.id = id;
     }
 
-    public User(String email,String salt,String username,String password_hash,Role role) {
+    public User(String email,String salt,String username,String password,Role role) {
         this.email = email;
         this.username = username;
         this.salt = salt;
-        this.password_hash = password_hash;
+        this.password = password;
 
         this.role = role;
         this.role.setUser(this);
     }
 
-    public User(String email,String salt,String username,String password_hash,Role role,Provider provider) {
+    public User(String email,String salt,String username,String password,Role role,Provider provider) {
         this.email = email;
 	this.username = username;
 	this.salt = salt;
-	this.password_hash = password_hash;
+	this.password = password;
 	
 	this.role = role;
 	this.role.setUser(this);
@@ -94,11 +88,11 @@ public class User implements Serializable{
 	this.provider.setUser(this);
     }
 
-    public User(String email,String salt,String username,String password_hash,Role role,Parent parent) {
+    public User(String email,String salt,String username,String password,Role role,Parent parent) {
         this.email = email;
         this.username = username;
         this.salt = salt;
-        this.password_hash = password_hash;
+        this.password = password;
 
         this.role = role;
         this.role.setUser(this);
@@ -111,8 +105,12 @@ public class User implements Serializable{
 
     // Getter and setter methods
 
-    public String getPassword_hash(){ return this.password_hash;}
-    public void setPassword_hash(String pass){ this.password_hash = pass;}
+    public String getPassword(){ return this.password;}
+    public void setPassword(String pass){ this.password = pass;}
+
+    public String getPassword_confirmation(){ return this.password_confirmation; }
+    public void setPassword_confiramtion(String password_confirmation) { this.password_confirmation = password_confirmation; }
+
 
     public String getSalt(){ return this.salt; }
     public void setSalt(String salt) { this.salt = salt; }
@@ -123,15 +121,6 @@ public class User implements Serializable{
     public void setEmail(String value) {
         this.email = value;
     }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String value) {
-        this.name = value;
-    }
-
-
 
     public String getUsername() {
         return username;
