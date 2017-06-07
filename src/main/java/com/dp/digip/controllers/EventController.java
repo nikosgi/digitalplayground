@@ -64,6 +64,12 @@ public class EventController {
         return "redirect:";
     }
 
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    public String displayEvent(@PathVariable("id") Long event_id, Model model){
+        model.addAttribute("event",eventDao.findOne(event_id));
+        return "/event";
+
+    }
 
     @RequestMapping(value = "/image/{image_id}",method = RequestMethod.GET, produces = MediaType.IMAGE_PNG_VALUE)
     @ResponseBody
@@ -75,6 +81,8 @@ public class EventController {
         headers.setContentType(MediaType.IMAGE_PNG);
         return new ResponseEntity<byte[]> (image, headers, HttpStatus.CREATED);
     }
+
+
 
 
 

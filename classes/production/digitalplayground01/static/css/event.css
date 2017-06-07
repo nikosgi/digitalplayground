@@ -1,0 +1,20 @@
+.container .row img{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.event-header{
+    position: relative;
+    display: block;
+}
+.event-header .text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+}
+.event-header img{
+    opacity: 0.3;
+}

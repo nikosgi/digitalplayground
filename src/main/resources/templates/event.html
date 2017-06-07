@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/navbar.css}"/>
+    <link rel="stylesheet" th:href="@{/css/event.css}"/>
+    <!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>-->
+    <link href="https://fonts.googleapis.com/css?family=Finger+Paint" rel="stylesheet"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <title>Digital Playground</title>
+
+</head>
+
+<body class="main">
+<div class="background">
+    <nav th:replace="navbar :: navigation"></nav>
+
+    <div class="container">
+        <div class="row">
+            <!--<img class="img-responsive" src="http://images.shape.mdpcdn.com/sites/shape.com/files/styles/story_detail/public/story/dating-a-younger-man-700_0.jpg?itok=VdKivCyT"/>-->
+            <div class="event-header">
+
+                <img class="img-responsive cover" th:src="${'http://localhost:8080/event/image/' + event.id}" />
+                <div class="text">
+                    <span class="title"><h3>Name</h3></span>
+                    <span class="year">Date</span>
+                    <span class="cat-name">Nase</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+</body>
+</html>
