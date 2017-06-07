@@ -52,7 +52,7 @@ public class EventController {
         return "events/add";
     }
 
-
+/*
 
     @RequestMapping(value ="add", method = RequestMethod.POST)
     public String processAddUser(@RequestParam("name") String name, @RequestParam("file") MultipartFile file,    @RequestParam("desc") String description, RedirectAttributes redirectAttributes) throws IOException {
@@ -83,7 +83,7 @@ public class EventController {
     }
 
 
-
+*/
 
 
 

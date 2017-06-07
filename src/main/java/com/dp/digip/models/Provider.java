@@ -3,74 +3,79 @@ package com.dp.digip.models;
 /**
  * Created by Christos on 24/5/2017.
  */
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Blob;
+import java.io.Serializable;
+import java.util.Set;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
 
 @Entity
 @Table(name = "provider")
-public class Provider {
+public class Provider implements Serializable{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
-    @NotNull
+    @Column(unique = true, nullable = false)
     private String sector_type;
 
-    @NotNull
+    @Column(unique = true, nullable = false)
     private String brand_name;
 
-    @NotNull
+    @Column(unique = true, nullable = false)
     private String distinctive_title;
 
-    @NotNull
+    @Column(unique = true, nullable = false)
     private String tax_identification_number;
 
-    @NotNull
+    @Column(unique = true, nullable = false)
     private String public_finance_agency;
 
-    @NotNull
+    @Column(unique = true, nullable = false)
     private String country;
 
-    @NotNull
+    @Column(unique = true, nullable = false)
     private String address;
 
-    @NotNull
+    @Column(unique = true, nullable = false)
     private String address_number;
 
-    @NotNull
+    @Column(unique = true, nullable = false)
     private String postal_code;
 
-    @NotNull
+    @Column(unique = true, nullable = false)
     private String region;
 
-    @NotNull
+    @Column(unique = true, nullable = false)
     private String municipality;
 
-    @NotNull
+    @Column(unique = true, nullable = false)
     private String legal_represantation;
 
-    @NotNull
+    @Column(unique = true, nullable = false)
     private String legal_represantation_phone;
 
-    @NotNull
+    @Column(unique = true, nullable = false)
     private String legal_represantation_email;
 
-    @NotNull
+    @Column(unique = true)
     private Blob participation_certificate;
 
-    @NotNull
+    @Column(unique = true)
     private Blob identification_document;
 
-    @NotNull
+    @Column(unique = true)
     private Blob avatar;
 
+    @Id
+    @OneToOne
+    @JoinColumn(name="id") 
+    private User user;
+
+
+
+    public Provider() { }
 
     public Provider(String sector_type, String brand_name, String distinctive_title, String tax_identification_number,
                     String public_finance_agency, String country, String address, String address_number, String postal_code,
@@ -168,6 +173,9 @@ public class Provider {
         avatar = avatar1;
     }
 
+    public void setUser(User user1){
+	this.user = user1;
+    }
 
     //GETTERS
 
@@ -239,5 +247,8 @@ public class Provider {
         return avatar;
     }
 
+    public User getUser(){
+	return this.user;
+    }
 
 }

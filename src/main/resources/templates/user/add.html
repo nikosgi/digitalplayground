@@ -7,8 +7,10 @@
 <nav th:replace="fragments :: navigation"></nav>
 
 <form method = "post">
-    name<input type="text" name="name"/>
+    username<input type="text" name="username"/>
     email<input type="email" name="email"/>
+    password_hash<input type="text" name ="password_hash"/>
+    salt<input type="text" name="salt"/> 
     <input type="submit" value="Add User"/>
 </form>
 
