@@ -7,9 +7,9 @@ import javax.persistence.*;
 
 import javax.validation.constraints.NotNull;
 import java.util.Set;
-<<<<<<< HEAD
 
-=======
+
+
 import java.io.Serializable;
 /**
  * An entity User composed by three fields (id, email, name).
@@ -18,7 +18,7 @@ import java.io.Serializable;
  *
  * @author netgloo
  */
->>>>>>> petros_pant
+
 @Entity
 @Table(name = "user")
 public class User implements Serializable{
@@ -28,7 +28,7 @@ public class User implements Serializable{
     @Column( unique = true,nullable = false)
     private Long id;
 
-<<<<<<< HEAD
+
     @NotNull
     private  String password;
 
@@ -36,7 +36,7 @@ public class User implements Serializable{
     private String name;
 
     @NotNull
-=======
+
     @Column( unique = true,nullable = false)
     private  String password_hash;
 
@@ -47,7 +47,7 @@ public class User implements Serializable{
     private String username;
 
     @Column( unique = true,nullable = false)
->>>>>>> petros_pant
+
     private String email;
     
     @OneToOne(cascade=CascadeType.ALL, mappedBy="user") 
@@ -62,10 +62,9 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Event> events;
 
-<<<<<<< HEAD
-=======
 
->>>>>>> petros_pant
+
+
     public User() { }
 
     public User(long id) {
@@ -125,7 +124,6 @@ public class User implements Serializable{
         this.email = value;
     }
 
-<<<<<<< HEAD
     public String getName() {
         return name;
     }
@@ -135,8 +133,6 @@ public class User implements Serializable{
 
 
 
-
-=======
     public String getUsername() {
         return username;
     }
@@ -164,7 +160,7 @@ public class User implements Serializable{
     public Provider getProvider(){
 	return this.provider;
     }
->>>>>>> petros_pant
+
 
     public void setProvider(Provider provider1){
 	this.provider = provider1;
