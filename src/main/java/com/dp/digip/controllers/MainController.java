@@ -9,8 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import com.dp.digip.models.User;
+
+
+import static java.lang.System.out;
 
 import java.util.Map;
 
@@ -40,9 +44,31 @@ public class MainController {
         @RequestMapping(value = "/login")
         public String listGifs(){
 
+	    out.println("inside login");	    
+
             return "login";
         }
+	
+	@RequestMapping(value = "login" ,method = RequestMethod.POST)
+        public String loggedIn(@RequestParam String username,@RequestParam String password){
+		out.println("logged in pressed");
+		out.println(username);
+		out.println(password);
+
+		User the_user = userDao.findByUsername(username);
+		out.println(the_user.getEmail() );
+
+		
+
+		return "index";		
+
+	}	
+
+
     }
+
+    
+
 
     @Controller
     public class UnderConstructionController {
