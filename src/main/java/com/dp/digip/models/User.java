@@ -34,8 +34,8 @@ public class User implements Serializable{
     @Transient
     private String password_confirmation;
 
-    @Column( unique = true,nullable = true)
-    private String salt;
+    @Transient
+    private String role_temp;
 
     @Column( unique = true,nullable = false)
     private String username;
@@ -65,20 +65,18 @@ public class User implements Serializable{
         this.id = id;
     }
 
-    public User(String email,String salt,String username,String password,Role role) {
+    public User(String email,String username,String password,Role role) {
         this.email = email;
-        this.username = username;
-        this.salt = salt;
+        this.username = username; 
         this.password = password;
 
         this.role = role;
         this.role.setUser(this);
     }
 
-    public User(String email,String salt,String username,String password,Role role,Provider provider) {
+    public User(String email,String username,String password,Role role,Provider provider) {
         this.email = email;
 	this.username = username;
-	this.salt = salt;
 	this.password = password;
 	
 	this.role = role;
@@ -88,10 +86,9 @@ public class User implements Serializable{
 	this.provider.setUser(this);
     }
 
-    public User(String email,String salt,String username,String password,Role role,Parent parent) {
+    public User(String email,String username,String password,Role role,Parent parent) {
         this.email = email;
         this.username = username;
-        this.salt = salt;
         this.password = password;
 
         this.role = role;
@@ -111,9 +108,9 @@ public class User implements Serializable{
     public String getPassword_confirmation(){ return this.password_confirmation; }
     public void setPassword_confiramtion(String password_confirmation) { this.password_confirmation = password_confirmation; }
 
+    public String getRole_temp(){ return this.role_temp;}
+    public void setRole_temp(String role_temp) {this.role_temp = role_temp; }
 
-    public String getSalt(){ return this.salt; }
-    public void setSalt(String salt) { this.salt = salt; }
 
     public String getEmail() {
         return email;

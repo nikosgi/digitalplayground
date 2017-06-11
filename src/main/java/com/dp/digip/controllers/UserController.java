@@ -3,6 +3,7 @@ package com.dp.digip.controllers;
 import com.dp.digip.models.User;
 import com.dp.digip.models.DAO.UserDAO;
 import com.dp.digip.models.Role;
+import com.dp.digip.service.UserService;
 //import com.dp.digip.models.DAO.RoleDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,11 @@ public class UserController {
 
     @Autowired
     private UserDAO userDao;
-    //@Autowired
-    //private RoleDAO roleDao;
 
+    @Autowired
+    private UserService userService;
+
+    
     @RequestMapping(value ="")
     public String index(Model model){
         model.addAttribute("users",userDao.findAll());
@@ -41,22 +44,16 @@ public class UserController {
 
 
     @RequestMapping(value ="add", method = RequestMethod.POST)
-    public String processAddUser(@ModelAttribute @Valid User newUser, Errors errors, Model model){
+    public String processAddUser(@ModelAttribute User newUser, Errors errors, Model model){
 
         if(errors.hasErrors()){
             model.addAttribute("title","Add user");
             return "user/add";
         }
-
-	out.println(newUser.getUsername());
-   	out.println(newUser.getPassword());	
-	out.println(newUser.getEmail());
-	out.println(newUser.getSalt());
-	
-	User myUser = new User(newUser.getEmail(),newUser.getSalt(),newUser.getUsername(),newUser.getPassword(),new Role("admin") );
-	
-	userDao.save(myUser);	
-
+        	
+	//User myUser = new User(newUser.getEmail(),newUser.getUsername(),newUser.getPassword(),new Role(newUser.getRole_temp()) );
+	//userDao.save(myUser);	
+	userService.save(newUser);
 
         return "redirect:";
     }
