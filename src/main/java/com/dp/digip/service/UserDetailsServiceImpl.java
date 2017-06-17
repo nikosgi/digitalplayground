@@ -3,6 +3,8 @@ package com.dp.digip.service;
 
 import com.dp.digip.models.User;
 import com.dp.digip.models.Role;
+import com.dp.digip.service.UserStoreService;
+import com.dp.digip.components.AuthenticationFacade;
 
 import com.dp.digip.models.DAO.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.Authentication;
+
 
 
 
@@ -25,27 +29,50 @@ import static java.lang.System.out;
 
 
 
+
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService,UserService{
+public class UserDetailsServiceImpl implements UserDetailsService//,UserDetails
+{
+
+    @Autowired 
+    private AuthenticationFacade authenticationFacade;
+
     @Autowired
     private UserDAO userDao;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         out.println("into userdetails.");	
 
         User user = userDao.findByUsername(username);
 	
+	out.println("\njust before check \n");
+	Authentication auth = authenticationFacade.getAuthentication();
+	if ( auth != null ) 
+		out.println(auth.getName() );
 	       
-	out.println(user.getRole().getRole());	
+	out.println("the role of user "+user.getUsername()+" is "+user.getRole().getRole());	
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(), getAuthorities(user.getRole().getRole()));
 
     }
+/*
+Here we can implement UserDetails interface 
+
+	Collection<? extends GrantedAuthority> 	getAuthorities()
+	String 	getPassword()
+	String 	getUsername()
+	boolean isAccountNonExpired()
+	boolean isAccountNonLocked()
+	boolean isCredentialsNonExpired()
+	boolean isEnabled()
+
+	
+    public List<GrantedAuthority> getAuthorities (){
+	Authentication auth = authenticationFacade.getAuthentication();
+    }
+*/
+
     private static List<GrantedAuthority> getAuthorities (String role) {
         List<GrantedAuthority> authorities = new ArrayList<>();
 	authorities.add(new SimpleGrantedAuthority(role));        
@@ -56,17 +83,6 @@ public class UserDetailsServiceImpl implements UserDetailsService,UserService{
         return authorities;
     }
 
-    @Override
-    public void save(User newUser) { 
-        User user = new User(newUser.getEmail(),newUser.getUsername(),bCryptPasswordEncoder.encode(newUser.getPassword()),new Role(newUser.getRole_temp()) );        
-        out.println("and here");
-        userDao.save(user);
-    }
-
-    @Override
-    public User findByUsername(String username) {
-        return userDao.findByUsername(username);
-    }
 
 
 }

@@ -3,7 +3,7 @@ package com.dp.digip.controllers;
 import com.dp.digip.models.User;
 import com.dp.digip.models.DAO.UserDAO;
 import com.dp.digip.models.Role;
-import com.dp.digip.service.UserService;
+import com.dp.digip.service.UserStoreService;
 //import com.dp.digip.models.DAO.RoleDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class UserController {
     private UserDAO userDao;
 
     @Autowired
-    private UserService userService;
+    private UserStoreService userStoreService;
 
     
     @RequestMapping(value ="")
@@ -53,7 +53,7 @@ public class UserController {
         	
 	//User myUser = new User(newUser.getEmail(),newUser.getUsername(),newUser.getPassword(),new Role(newUser.getRole_temp()) );
 	//userDao.save(myUser);	
-	userService.save(newUser);
+	userStoreService.save(newUser);
 
         return "redirect:";
     }

@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import static java.lang.System.out;
+import com.dp.digip.service.UserDetailsServiceImpl;
 
 
 @Configuration
@@ -20,7 +21,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsServiceImpl;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -54,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         //auth.inMemoryAuthentication()
         //  .withUser("user1").password("user1Pass").roles("ADMIN");
-	auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+	auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(bCryptPasswordEncoder());
     }
 
 
