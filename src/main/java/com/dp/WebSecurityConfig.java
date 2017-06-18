@@ -11,6 +11,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import static java.lang.System.out;
 import com.dp.digip.service.UserDetailsServiceImpl;
+import org.springframework.core.annotation.Order;
+import org.springframework.session.web.http.HttpSessionStrategy;
+import org.springframework.session.web.http.HeaderHttpSessionStrategy;
+import org.springframework.security.web.savedrequest.NullRequestCache; 
+
 
 
 @Configuration
@@ -39,13 +44,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	  .antMatchers("/user/**").permitAll()//hasAuthority("ADMIN")
           .antMatchers("/event/**").hasAuthority("ADMIN")
           .anyRequest().authenticated()
-          .and().csrf().disable()
+	  .and().csrf().disable() 
           .formLogin()
           .loginPage("/login")
           .defaultSuccessUrl("/")
           .failureUrl("/errorError")
           .and()
-          .logout().logoutSuccessUrl("/login");       
+          .logout().logoutSuccessUrl("/login")      
+	  .and()
+          .requestCache()
+          .requestCache(new NullRequestCache())
+          .and()
+          .httpBasic(); 
+	//.and().csrf().disable()
 		
 		          
     } 
@@ -57,9 +68,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //  .withUser("user1").password("user1Pass").roles("ADMIN");
 	auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(bCryptPasswordEncoder());
     }
-
-
-
+/* 
+    @Bean
+    public HttpSessionStrategy httpSessionStrategy() {
+        return new HeaderHttpSessionStrategy();
+    }
+*/
 /*
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
