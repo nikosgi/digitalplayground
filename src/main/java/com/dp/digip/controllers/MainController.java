@@ -8,6 +8,9 @@ import com.dp.digip.models.DAO.EventDAO;
 import com.dp.digip.models.DAO.UserDAO;
 import com.dp.digip.models.User;
 import com.dp.digip.components.AuthenticationFacade;
+import com.dp.digip.models.DTO.UserObject;
+import com.dp.digip.models.DTO.ParentObject;
+
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -101,14 +104,35 @@ public class MainController {
     	}
 
     	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-    	public String registration(@ModelAttribute("userForm") User userForm, Model model) {
+    	public String registration(@ModelAttribute ParentObject parent,@RequestParam("username") String username,@RequestParam("email") String email,
+		@RequestParam("password") String password,@RequestParam("dd") String birthDay,@RequestParam("mm")String birthMonth,@RequestParam("yyyy")String birthYear, Model model) {
 
+		String role = "PARENT";
+	
+		out.println("username = "+username);
+		out.println("password = "+password);
+		out.println("email = "+email);
+		out.println("parent name= "+parent.getName());
+		out.println("parent surname= "+parent.getSurname());
+		out.println("parent cellphone= "+parent.getCellphone());
+		out.println("parent phone= "+parent.getPhone());		
+		out.println("parent region= "+parent.getRegion());
+		out.println("parent municipality"+ parent.getMunicipality());		
+		out.println("parent country "+ parent.getCountry());
+
+		out.println("birthday "+ birthDay);
+		out.println("birthMonth "+ birthMonth);
+		out.println("birthYear "+ birthYear);
+
+
+	
 	
         	//userStoreService.save(userForm);
 
-        	securityService.autologin(userForm.getUsername(), userForm.getPassword());
+        //	securityService.autologin(userForm.getUsername(), userForm.getPassword());
 		out.println("here3");
-        	return "redirect:/index";
+        
+		return "redirect:/index";
     	}
 
     }
