@@ -44,16 +44,32 @@ public class UserDetailsServiceImpl implements UserDetailsService//,UserDetails
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         out.println("into userdetails.");	
 
-        User user = userDao.findByUsername(username);
 	
-	out.println("\njust before check \n");
-	Authentication auth = authenticationFacade.getAuthentication();
-	if ( auth != null ) 
-		out.println(auth.getName() );
-	       
+        User user = userDao.findByUsername(username);
+	if (user == null)	
+		throw new UsernameNotFoundException("User '" +username + "' could not be found.");
+
+
+	//Authentication auth = authenticationFacade.getAuthentication();
+	//if ( auth != null ) 
+	//	out.println(auth.getName() );i
+
+	//grant authorities
+	String role = user.getRole().getRole();
+	
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(role));
+	 
+        //for (String role : roles) {
+        //        //    authorities.add(new SimpleGrantedAuthority(role));
+        //                //}
+        //
+
+
+     
 	out.println("the role of user "+user.getUsername()+" is "+user.getRole().getRole());	
 
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(), getAuthorities(user.getRole().getRole()));
+        return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(), authorities );
 
     }
 /*
