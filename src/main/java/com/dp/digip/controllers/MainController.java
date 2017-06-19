@@ -18,8 +18,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import com.dp.digip.service.SecurityService;
-import com.dp.digip.service.UserStoreService;
-import com.dp.digip.validator.UserValidator;
+import com.dp.digip.service.UserServiceImpl;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -87,7 +87,7 @@ public class MainController {
     @Controller
     public class SignupController {
 	@Autowired
-	private UserStoreService userStoreService;
+	private UserServiceImpl userService;
 
 	@Autowired
 	private SecurityService securityService;
@@ -103,7 +103,7 @@ public class MainController {
     	public String registration(@ModelAttribute("userForm") User userForm, Model model) {
 
 	
-        	userStoreService.save(userForm);
+        	//userStoreService.save(userForm);
 
         	securityService.autologin(userForm.getUsername(), userForm.getPassword());
 		out.println("here3");

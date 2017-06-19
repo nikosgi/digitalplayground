@@ -3,7 +3,7 @@ package com.dp.digip.service;
 
 import com.dp.digip.models.User;
 import com.dp.digip.models.Role;
-import com.dp.digip.service.UserStoreService;
+import com.dp.digip.service.UserServiceImpl;
 import com.dp.digip.components.AuthenticationFacade;
 
 import com.dp.digip.models.DAO.UserDAO;
