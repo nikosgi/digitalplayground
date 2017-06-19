@@ -7,14 +7,104 @@
 .event-header{
     position: relative;
     display: block;
+
+    box-shadow: 0 0 6px 3px rgb(57, 62, 70);
+
 }
 .event-header .text{
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 18px;
+    background-color: #393e46;
+    width: 100%;
+    opacity: 0.7;
+    text-align: center;
+    border-radius: 10%;
+    height: 50%
+}
+
+.event-header .text .title{
+    font-size: 65px;
+    color: rgba(216,223,226,1)
 }
 .event-header img{
     opacity: 0.3;
+}
+
+.row .description, .row .tickets, .row .organized, .row .location{
+    background-color: rgb(34, 40, 49);
+    margin-top: 30px;
+    text-align: center;
+    box-shadow: 0 0 6px 3px rgb(57, 62, 70);
+}
+.row .tickets, .row .organized {
+    color: #d8dfe2;
+}
+.row .desc-header, .row .loc-header, .row .tickets-header, .row .organized-header{
+    background-color: #222831;
+    text-align: center;
+    color:#d8dfe2;
+    padding: 1px;
+    border-bottom: solid #d8dfe2;
+}
+.row .loc-header{
+    border:none;
+}
+.row .desc-header h3, .row .loc-header h3, .row .tickets-header h3, .row .organized-header h3{
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+#map {
+    height: 200px;
+}
+
+.row .desc-text p{
+    color: #d8dfe2
+}
+.row .tickets{
+    margin-bottom: 0;
+}
+
+.checkout{
+    height:100%;
+    color: #00adb5;
+}
+
+.checkout #qty{
+    background-color: #222831;
+    text-align: center;
+    height: 80px;
+    width: 80px;
+    border: none;
+    font-size:xx-large;
+}
+.checkout button{
+    background-color: #222831;
+    border: none;
+}
+.checkout #qty:focus, .checkout button:focus{
+    outline: none;
+    bordeR:none
+}
+
+.row .ticket-available{
+    background-color: #222831;
+    text-align: center;
+    color:#d8dfe2;
+    margin: 0;
+    padding: 0;
+}
+
+.tickets .ticket-button{
+    font-size: large;
+    height:50px;
+    width:100%;
+    background-color: #222831;
+    border-top: 1px solid #d8dfe2;
+    border-bottom:0 ;
+    border-right:0;
+    border-left: 0;
+    box-shadow:none;
+    margin: 0px; !important;
 }

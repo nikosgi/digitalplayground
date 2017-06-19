@@ -239,7 +239,6 @@
     transform: translate3d(0,0,0);
 }
 .quotes span{
-    color:#222;
     font-weight: bold;
     text-transform: capitalize;
     color: #d8dfe2;

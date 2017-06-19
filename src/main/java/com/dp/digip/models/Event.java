@@ -33,6 +33,9 @@ public class Event {
     @NotNull
     private String description;
 
+    @NotNull
+    private String date;
+
     @Lob
     @Column(length=10000000)
     @NotNull

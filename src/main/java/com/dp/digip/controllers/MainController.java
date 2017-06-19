@@ -35,14 +35,30 @@ public class MainController {
         return "index";
     }
 
+    @RequestMapping("/map")
+    public String map(Model model) {
+        model.addAttribute("events",eventDao.findAll());
+        model.addAttribute("imgUrl", "http://localhost:8080/event/image/");
+        return "map";
+    }
+
     @Controller
-    public class SignupController {
+    public class LoginController {
         @RequestMapping(value = "/login")
         public String listGifs(){
 
             return "login";
         }
     }
+
+    @Controller
+    public class SignupController {
+        @RequestMapping(value= "/signup")
+        public String signup(){
+            return "signup";
+        }
+    }
+
 
     @Controller
     public class UnderConstructionController {

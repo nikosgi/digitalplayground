@@ -11,11 +11,14 @@
     <link href="https://fonts.googleapis.com/css?family=Finger+Paint" rel="stylesheet"/>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <title>Digital Playground</title>
-
+    <!--<script th:src="@{/js/event-map.js}"></script>-->
+    <script src="//maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <script th:src="@{/js/event-map.js}" />
+    <script th:src="@{/js/counter.js}"/>
 </head>
 
 <body class="main">
-<div class="background">
+
     <nav th:replace="navbar :: navigation"></nav>
 
     <div class="container">
@@ -25,17 +28,66 @@
 
                 <img class="img-responsive cover" th:src="${'http://localhost:8080/event/image/' + event.id}" />
                 <div class="text">
-                    <span class="title"><h3>Name</h3></span>
-                    <span class="year">Date</span>
+                    <span class="title" th:text="${event.name}">Event Name</span><br/>
+                    <span class="year" th:text="${event.description }">Date</span><br/>
                     <span class="cat-name">Nase</span>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-8">
+                <div class="description">
+                    <div class="desc-header">
+                        <h3>Description</h3>
+                    </div><br/>
+                    <div class="desc-text">
+                        <p>This iThe process of writing a job description requires having a clear understanding of the job’s duties and responsibilities. The job posting should also include a concise picture of the skills required for the position to attract qualified job candidates. Organize the job description into five sections: Company Information, Job Description, Job Requirements, Benefits and a Call to Action. Be sure to include keywords that will help make your job posting searchable. A well-defined job description will help attract qualified candidates as well as help reduce employee turnover  in the long run.
+
+                            Use the sample job postings below to help write your job description and improve your job posting results. Then when you're ready, post your job on Monster to reach the right talent - act now and save 20% when you buy a 60-day job ad!</p>
+
+                    </div>
+                </div>
+                <div class="location">
+                    <div class="loc-header">
+                        <h3>Location</h3>
+                    </div>
+                    <div id="map" style="clear:both; height:200px;"></div>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="tickets">
+                    <div class="tickets-header">
+                        <h3>Tickets</h3>
+                    </div><br/>
+                    <div class="ticket-available">
+                        <h4>Available : 162</h4>
+                    </div>
+                    <form class="checkout">
+                        <label for="qty"></label>
+                        <button type="button">
+                            <span><i class="glyphicon glyphicon-minus" onclick="modify_qty(-1)"></i></span>
+                        </button>
+                        <input id="qty" value="0" />
+                        <button type="button">
+                            <span><i class="glyphicon glyphicon-plus" onclick="modify_qty(1)"></i></span>
+                        </button>
+                    </form><br/>
+                    <button type="submit" class="ticket-button">Book Now</button>
+                </div>
+                <div class="organized">
+                    <div class="organized-header">
+                        <h3>Organized</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <footer>
+        This is us
+    </footer>
 
 
 
 
-</div>
 </body>
 </html>

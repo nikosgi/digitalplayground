@@ -65,7 +65,7 @@ form.login input[type="submit"]
 }
 
 ::-webkit-input-placeholder { /* Chrome */
-    color: #EA9215;
+    color: #00adb5;
 }
 
 form.login input[type="submit"]:hover
@@ -79,18 +79,20 @@ form.login .remember-forgot
     height: 100%;
     margin: 10px 0 0 0;
 }
-form.login .forgot-pass-content
+form.login .forgot-pass-content, form.login .checkbox
 {
     min-height: 20px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
-
+form.login input{
+    margin: 2px;
+}
 form.login label, form.login a
 {
     font-size: 12px;
     font-weight: 400;
-    color: #ffffff;
+    color: #d8dfe2;
 }
 
 form.login a
@@ -100,17 +102,10 @@ form.login a
 
 form.login a:hover
 {
-    color: #ea9215;
+    color: #00adb5;
 }
-
-.posted-by
-{
-    position: absolute;
-    bottom: 26px;
-    margin: 0 auto;
-    color: #FFF;
-    background-color: rgba(0, 0, 0, 0.66);
-    padding: 10px;
-    left: 45%;
+.signup{
+    text-align: center;
+    color: #d8dfe2;
+    font-size:12px;
 }
-
