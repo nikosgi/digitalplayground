@@ -100,7 +100,14 @@ public class Event implements Serializable{
 	@JoinColumn(name = "user_id",nullable = false, referencedColumnName="id")
 	private User user;
 
-    	public Event() { }
+	public Event(){}
+
+    	public Event(String name,byte[] image,String description,User user) {
+		this.name = name;
+		this.image = image;
+		this.description = description;
+		this.user = user;
+	}
 
     	public Event(long id) {
         	this.id = id;

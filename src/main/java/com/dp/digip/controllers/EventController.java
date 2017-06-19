@@ -5,6 +5,10 @@ package com.dp.digip.controllers;
  */
 import com.dp.digip.models.Event;
 import com.dp.digip.models.DAO.EventDAO;
+import com.dp.digip.models.DAO.UserDAO;
+import com.dp.digip.models.User;
+import com.dp.digip.components.AuthenticationFacade;
+import org.springframework.security.core.Authentication;
 
 
 import org.hibernate.Hibernate;
@@ -35,6 +39,12 @@ import java.util.Arrays;
 public class EventController {
 
     @Autowired
+    private AuthenticationFacade authenticationFacade;
+
+    @Autowired 
+    private UserDAO userDao;
+
+    @Autowired
     private EventDAO eventDao;
 
     @RequestMapping(value ="")
@@ -52,14 +62,19 @@ public class EventController {
         return "events/add";
     }
 
-/*
+
 
     @RequestMapping(value ="add", method = RequestMethod.POST)
     public String processAddUser(@RequestParam("name") String name, @RequestParam("file") MultipartFile file,    @RequestParam("desc") String description, RedirectAttributes redirectAttributes) throws IOException {
 
+        Authentication auth = authenticationFacade.getAuthentication();
+	String username = auth.getName();
+
+	User eventOwner = userDao.findByUsername(username);
+
         byte[] image = file.getBytes();
         System.out.println(file.getSize());
-        Event event = new Event(name,image,description);
+        Event event = new Event(name,image,description,eventOwner);
         eventDao.save(event);
         return "redirect:";
     }
@@ -83,7 +98,7 @@ public class EventController {
     }
 
 
-*/
+
 
 
 
