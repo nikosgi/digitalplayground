@@ -23,9 +23,9 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="login-window">
-                    <form class="login">
-                        <input type="text" placeholder="Username" />
-                        <input type="password" placeholder="Password" />
+                    <form th:action="@{/login}" method="post" class="login">
+                        <input type="text" name="username" placeholder="Username" />
+                        <input type="password" name="password" placeholder="Password" />
                         <input type="submit" value="Sign In" class="btn btn-primary btn-sm" />
                         <div class="signup">
                             <br/>

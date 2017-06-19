@@ -14,5 +14,5 @@ import org.springframework.stereotype.Repository;
 @Transactional
 public interface UserDAO extends CrudRepository<User, Long> {
 
-
+	User findByUsername(String username);
 }

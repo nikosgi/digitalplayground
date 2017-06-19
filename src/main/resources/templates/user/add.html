@@ -6,9 +6,12 @@
 <h1 th:text="${title}">Default Title</h1>
 <nav th:replace="fragments :: navigation"></nav>
 
-<form method = "post">
-    name<input type="text" name="name"/>
+<form method = "post" 
+	th:object="${newUser}" >
+    username<input type="text" name="username"/>
     email<input type="email" name="email"/>
+    password<input type="text" name ="password"/>
+    role<input type="text" name="role_temp"/> 
     <input type="submit" value="Add User"/>
 </form>
 

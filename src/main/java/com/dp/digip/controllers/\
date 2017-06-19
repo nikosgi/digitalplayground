@@ -1,10 +1,11 @@
 package com.dp.digip.controllers;
 
+/**
+ * Created by Nikos on 21/5/2017.
+ */
 import com.dp.digip.models.User;
 import com.dp.digip.models.DAO.UserDAO;
-import com.dp.digip.models.Role;
-import com.dp.digip.service.UserServiceImpl;
-//import com.dp.digip.models.DAO.RoleDAO;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static java.lang.System.out;
-
 @Controller
 @RequestMapping("user")
 public class UserController {
@@ -23,10 +22,6 @@ public class UserController {
     @Autowired
     private UserDAO userDao;
 
-    @Autowired
-    private UserServiceImpl userService;
-
-    
     @RequestMapping(value ="")
     public String index(Model model){
         model.addAttribute("users",userDao.findAll());
@@ -44,17 +39,13 @@ public class UserController {
 
 
     @RequestMapping(value ="add", method = RequestMethod.POST)
-    public String processAddUser(@ModelAttribute User newUser, Errors errors, Model model){
+    public String processAddUser(@ModelAttribute @Valid User newUser, Errors errors, Model model){
 
         if(errors.hasErrors()){
             model.addAttribute("title","Add user");
             return "user/add";
         }
-        	
-	//User myUser = new User(newUser.getEmail(),newUser.getUsername(),newUser.getPassword(),new Role(newUser.getRole_temp()) );
-	//userDao.save(myUser);	
-	userService.saveUser(newUser);
-
+        userDao.save(newUser);
         return "redirect:";
     }
 
