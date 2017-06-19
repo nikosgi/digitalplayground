@@ -6,6 +6,7 @@ package com.dp.digip.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Blob;
+import java.util.Date;
 import java.io.Serializable;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -21,11 +22,8 @@ public class Parent implements Serializable{
     @Column(unique = true, nullable = false)
     private String surname;
 
-    @Column(unique = true, nullable = false)
-    private String fathers_name;
-
-    @Column(unique = true, nullable = false)
-    private String email;
+//    @Column(unique = true, nullable = false)
+//    private String fathers_name;
 
     @Column(unique = true, nullable = false)
     private String cellphone;
@@ -42,19 +40,22 @@ public class Parent implements Serializable{
     @Column(unique = true, nullable = false)
     private String country;
 
+    @Column(unique = false, nullable = false)
+    private Date birthDate;
+
     //there are 2 types of Blob
-    @Column(unique = true)
+    @Column(unique = true,nullable = true)
     private Blob participation_certificate;
 
     //there are 2 types of Blob
-    @Column(unique = true)
+    @Column(unique = true, nullable = true)
     private Blob avatar;
 
     @Column(unique = true, nullable = false)
     private Integer money;
 
-    @Column(unique = true, nullable = false)
-    private String pass;
+//    @Column(unique = true, nullable = false)
+//    private String pass;
 
     @Id
     @OneToOne
@@ -63,15 +64,11 @@ public class Parent implements Serializable{
 
     public Parent() { }
 
-    public Parent(String email, String name, String surname, String fathers_name, String pass,
-                  String cellphone, String phone, String region, String municipality,
+    public Parent( String name, String surname, String fathers_name,String cellphone, String phone, String region, String municipality,
                   String country, Blob participation_certificate, Blob avatar, Integer money)
     {
-        this.email = email;
         this.name = name;
         this.surname = surname;
-        this.fathers_name = fathers_name;
-        this.pass = pass;
         this.cellphone = cellphone;
         this.phone = phone;
         this.region = region;
@@ -84,9 +81,6 @@ public class Parent implements Serializable{
 
     //SETTERS
 
-    public void setEmail(String email1){
-        email = email1;
-    }
 
     public void setName(String name1){
         name = name1;
@@ -96,9 +90,6 @@ public class Parent implements Serializable{
         surname = surname1;
     }
 
-    public void setFathers_name(String fathers_name1){
-        fathers_name = fathers_name1;
-    }
 
     public void setCellphone(String cellphone1){
         cellphone = cellphone1;
@@ -132,9 +123,6 @@ public class Parent implements Serializable{
         money = money1;
     }
 
-    public void setPass(String pass1){
-        pass = pass1;
-    }
 
     public void setUser(User user1){
 	this.user = user1;
@@ -143,20 +131,12 @@ public class Parent implements Serializable{
 
     //GETTERS
 
-    public String getEmail(){
-        return email;
-    }
-
     public String getName( ){
         return name;
     }
 
     public String etSurname( ){
         return surname;
-    }
-
-    public String getFathers_name( ){
-       return fathers_name;
     }
 
     public String getCellphone( ){
@@ -189,10 +169,6 @@ public class Parent implements Serializable{
 
     public Integer getMoney( ){
         return money;
-    }
-
-    public String getPass( ){
-        return pass;
     }
 
     public User getUser(){

@@ -91,14 +91,16 @@ public class MainController {
 	@Autowired
 	private SecurityService securityService;
 
-    	@RequestMapping(value = "/registration", method = RequestMethod.GET)
+    	@RequestMapping(value = "/signup", method = RequestMethod.GET)
     	public String registration(Model model) {
         	model.addAttribute("userForm", new User());
 
-        	return "registration";
+		out.println("here arrived");
+
+        	return "signup";
     	}
 
-    	@RequestMapping(value = "/registration", method = RequestMethod.POST)
+    	@RequestMapping(value = "/signup", method = RequestMethod.POST)
     	public String registration(@ModelAttribute("userForm") User userForm, Model model) {
 
 	
@@ -110,15 +112,7 @@ public class MainController {
     	}
 
     }
-/*
-    @Controller
-    public class SignupController {
-        @RequestMapping(value= "/signup")
-        public String signup(){
-            return "signup";
-        }
-    }
-*/
+
 
     @Controller
     public class LogController {
