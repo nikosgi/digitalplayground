@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 
-
+import com.dp.digip.models.DTO.UserObject;
 import java.io.Serializable;
 /**
  * An entity User composed by three fields (id, email, name).
@@ -32,17 +32,13 @@ public class User implements Serializable{
     private  String password;
 
     @Transient
-    private String password_confirmation;
-
-    @Transient
     private String role_temp;
 
     @Column( unique = true,nullable = false)
     private String username;
 
-    @Column( unique = true,nullable = false)
-
-    private String email;
+    @Column( unique = true,nullable = true)
+    private String email=null;
     
     @OneToOne(cascade=CascadeType.ALL, mappedBy="user") 
     private Role role;
@@ -64,6 +60,7 @@ public class User implements Serializable{
     public User(long id) {
         this.id = id;
     }
+
 
     public User(String email,String username,String password,Role role) {
         this.email = email;
@@ -105,22 +102,19 @@ public class User implements Serializable{
     public String getPassword(){ return this.password;}
     public void setPassword(String pass){ this.password = pass;}
 
-    public String getPassword_confirmation(){ return this.password_confirmation; }
-    public void setPassword_confiramtion(String password_confirmation) { this.password_confirmation = password_confirmation; }
-
     public String getRole_temp(){ return this.role_temp;}
     public void setRole_temp(String role_temp) {this.role_temp = role_temp; }
 
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
     public void setEmail(String value) {
         this.email = value;
     }
 
     public String getUsername() {
-        return username;
+        return this.username;
     }
     public void setUsername(String value) {
         this.username = value;

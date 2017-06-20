@@ -30,13 +30,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
-import static java.lang.System.out;
-
 import org.springframework.validation.BindingResult;
 import static java.lang.System.out;
 
 import java.lang.Object;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat; 
+
+import java.text.ParseException;
+
 
 @Controller
 public class MainController {
@@ -109,30 +112,27 @@ public class MainController {
 
 		String role = "PARENT";
 	
-		out.println("username = "+username);
-		out.println("password = "+password);
-		out.println("email = "+email);
-		out.println("parent name= "+parent.getName());
-		out.println("parent surname= "+parent.getSurname());
-		out.println("parent cellphone= "+parent.getCellphone());
-		out.println("parent phone= "+parent.getPhone());		
-		out.println("parent region= "+parent.getRegion());
-		out.println("parent municipality"+ parent.getMunicipality());		
-		out.println("parent country "+ parent.getCountry());
-
-		out.println("birthday "+ birthDay);
-		out.println("birthMonth "+ birthMonth);
-		out.println("birthYear "+ birthYear);
-
-
+		String birthDateString = birthMonth+"/"+birthDay+"/"+birthYear;
+		out.println(birthDateString);
 	
-	
-        	//userStoreService.save(userForm);
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
+		Date birthDate=null;
+		try {
+		    birthDate = df.parse(birthDateString);
+		} catch (ParseException e) {
+    			e.printStackTrace();
+		}
 
-        //	securityService.autologin(userForm.getUsername(), userForm.getPassword());
-		out.println("here3");
+		parent.setBirthDate(birthDate);
+		parent.setMoney(0);
+		
+		UserObject newUser = new UserObject(email,username,password,role); 
+
+	        userService.saveUser(newUser,parent);	
+
+       		securityService.autologin(username, password);
         
-		return "redirect:/index";
+		return "redirect:/";
     	}
 
     }

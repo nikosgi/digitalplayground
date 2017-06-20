@@ -1,87 +1,46 @@
-package com.dp.digip.models;
+package com.dp.digip.models.DTO;
 
-/**
- * 
- */
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.sql.Blob;
 import java.util.Date;
 import java.io.Serializable;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
-import com.dp.digip.models.DTO.ParentObject;
 
 
-@Entity
-@Table(name = "parent")
-public class Parent implements Serializable{
+public class ParentObject implements Serializable{
 
 
-    @Column(unique = false, nullable = false)
     private String name;
 
-    @Column(unique = false, nullable = false)
     private String surname;
 
 //    @Column(unique = true, nullable = false)
 //    private String fathers_name;
 
-    @Column(unique = true, nullable = false)
     private String cellphone;
 
-    @Column(unique = true, nullable = false)
     private String phone;
 
-    @Column(unique = false, nullable = false)
     private String region;
 
-    @Column(unique = false, nullable = false)
     private String municipality;
 
-    @Column(unique = false, nullable = false)
     private String country;
 
-    @Column(unique = false, nullable = false)
     private Date birthDate;
 
-    //there are 2 types of Blob
-    @Column(unique = true,nullable = true)
     private Blob participation_certificate;
 
-    //there are 2 types of Blob
-    @Column(unique = false, nullable = true)
     private Blob avatar;
 
-    @Column(unique = false, nullable = false)
     private Integer money;
 
 //    @Column(unique = true, nullable = false)
 //    private String pass;
 
-    @Id
-    @OneToOne
-    @JoinColumn(name="id")
-    private User user;
+    public ParentObject() { }
 
-    public Parent() { }
-
-    public Parent(ParentObject parent){
-	
-	this.name = parent.getName();
-	this.surname = parent.getSurname();
-	this.cellphone = parent.getCellphone();
-	this.phone = parent.getPhone();
-	this.region = parent.getRegion();
-	this.municipality = parent.getMunicipality();
-	this.country = parent.getCountry();
-	this.birthDate = parent.getBirthDate();
-	this.money = parent.getMoney();
-
-    }
-
-
-    public Parent( String name, String surname, String fathers_name,String cellphone, String phone, String region, String municipality,
+    public ParentObject( String name, String surname, String fathers_name,String cellphone, String phone, String region, String municipality,
                   String country, Blob participation_certificate, Blob avatar, Integer money)
     {
         this.name = name;
@@ -124,6 +83,11 @@ public class Parent implements Serializable{
         this.municipality = municipality1;
     }
 
+    public void setBirthDate(Date birthdate){
+	this.birthDate = birthdate;
+    
+    }
+
     public void setCountry(String country1){
         this.country = country1;
     }
@@ -138,11 +102,6 @@ public class Parent implements Serializable{
 
     public void setMoney(Integer money1){
         this.money = money1;
-    }
-
-
-    public void setUser(User user1){
-	this.user = user1;
     }
 
 
@@ -176,6 +135,11 @@ public class Parent implements Serializable{
         return this.country;
     }
 
+    public Date getBirthDate(){
+        return this.birthDate;
+
+    }
+
     public Blob getParticipation_certificate( ){
         return this.participation_certificate;
     }
@@ -186,10 +150,6 @@ public class Parent implements Serializable{
 
     public Integer getMoney( ){
         return this.money;
-    }
-
-    public User getUser(){
-	return this.user;
     }
 
 }
