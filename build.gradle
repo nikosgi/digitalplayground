@@ -65,6 +65,7 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-autoconfigure:1.5.3.RELEASE'
     compile("org.springframework.boot:spring-boot-devtools")
     compile 'com.google.guava:guava:11.0.2'
+    compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
 }
 
 bootRun{

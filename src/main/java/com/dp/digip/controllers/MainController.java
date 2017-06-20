@@ -126,11 +126,11 @@ public class MainController {
 
 	//login implemented from spring WebSecurity
 	    
-        @RequestMapping(value="/logout", method = RequestMethod.GET)
-        public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value="/logout", method = RequestMethod.GET)
+    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
     	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    	    if (auth != null){    
-		new SecurityContextLogoutHandler().logout(request, response, auth);
+        if (auth != null){    
+		  new SecurityContextLogoutHandler().logout(request, response, auth);
     	    }else{
 		out.println("not logged in");
 		return "redirect:/errorError";

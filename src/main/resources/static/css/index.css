@@ -50,7 +50,7 @@
     width: 100%;
 }
 
-.profile{
+.profile, .my-events{
     box-shadow: 0 0 6px 3px rgb(57, 62, 70);
 }
 .profile-name{
@@ -72,6 +72,9 @@
 }
 .container .profile{
     background-color: #222831;
+}
+.follow .glyphicon, .message .glyphicon{
+    top:3px;
 }
 .follow ,  .message{
     text-align: center;
@@ -112,25 +115,24 @@
     margin:0;
 }
 
-.row .my-events{
-    text-align: center;
+.row .my-events, .row .reminders {
     background-color: rgb(34, 40, 49);
+    margin-top: 30px;
+    text-align: center;
+    box-shadow: 0 0 6px 3px rgb(57, 62, 70);
 }
-.row .event-header{
+.row .event-header, .row .reminders-header {
+
     background-color: #222831;
     text-align: center;
     color:#d8dfe2;
-    margin: 0;
-    padding: 0;
+    padding: 1px;
     border-bottom: solid #d8dfe2;
 }
 
 .row .event-buttons{
     margin: 5px 0 5px 0;
     width: 100%;
-}
-.row .event-buttons button{
-
 }
 
 .list-quotes {

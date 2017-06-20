@@ -10,11 +10,13 @@
 }
 
 .navbar-default .navbar-nav>li>a,
+.navbar-default .navbar-nav>li>span, 
 .navbar-default .navbar-header>a{
     padding-top: 25px; padding-bottom: 25px; min-height: 69px;
 }
 .navbar-default .navbar-header .navbar-toggle{ padding-top:19px; padding-bottom:19px}
-.navbar-default .navbar-nav>li>a{ color: #d8dfe2;}
+.navbar-default .navbar-nav>li>a,
+.navbar-default .navbar-nav > li > span { color: #d8dfe2;}
 
 .navbar-default .navbar-nav > li > a:hover {color: #00ADB5;}
 .navbar-default .navbar-nav > .active > a,
@@ -69,4 +71,20 @@
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
     color:#00ADB5;
+}
+.navbar-default .dropdown-toggle {
+    font-size: large;
+    background-color: transparent;
+    color: #00ADB5;
+}
+.navbar-default .dropdown-toggle:hover,
+.navbar-default .dropdown-toggle:focus{
+    text-decoration: none;
+    background-color: transparent !important;
+}
+.navbar-default .glyphicon{
+    top: 3px;
+}
+.dropdown > a:focus{
+    color: #d8dfe2 !important; 
 }

@@ -15,19 +15,22 @@
             <ul class="nav navbar-nav">
                 <li><a href="/map.html">My Profile</a></li>
                 <li><a href="/event/">Events</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown Example<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Link One</a></li>
-                        <li><a href="#">Link Two</a></li>
-                        <li><a href="#">Link Three</a></li>
-                        <li><a href="#">Link Four</a></li>
-                    </ul>
-                </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
                 <li><a th:href="@{/signup.html}">Sign Up</a></li>
                 <li><a href="/login.html">Log In</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
+                        <span th:text="${#authentication.name}">User</span>
+                        <span class="glyphicon glyphicon-triangle-bottom"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/logout.html">Log Out</a></li>
+                    </ul>
+                    
+                </li>
             </ul>
         </div>
     </div>
