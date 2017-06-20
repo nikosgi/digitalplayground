@@ -51,9 +51,9 @@ public class UserController {
             return "user/add";
         }
         	
-	//User myUser = new User(newUser.getEmail(),newUser.getUsername(),newUser.getPassword(),new Role(newUser.getRole_temp()) );
+	User myUser = new User(newUser.getEmail(),newUser.getUsername(),newUser.getPassword(),new Role(newUser.getRole_temp()) );
 	//userDao.save(myUser);	
-	userService.saveUser(newUser);
+        	
 
         return "redirect:";
     }

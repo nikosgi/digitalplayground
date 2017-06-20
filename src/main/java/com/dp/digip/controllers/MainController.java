@@ -8,6 +8,9 @@ import com.dp.digip.models.DAO.EventDAO;
 import com.dp.digip.models.DAO.UserDAO;
 import com.dp.digip.models.User;
 import com.dp.digip.components.AuthenticationFacade;
+import com.dp.digip.models.DTO.UserObject;
+import com.dp.digip.models.DTO.ParentObject;
+
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,13 +30,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
-import static java.lang.System.out;
-
 import org.springframework.validation.BindingResult;
 import static java.lang.System.out;
 
 import java.lang.Object;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat; 
+
+import java.text.ParseException;
+
 
 @Controller
 public class MainController {
@@ -101,14 +107,32 @@ public class MainController {
     	}
 
     	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-    	public String registration(@ModelAttribute("userForm") User userForm, Model model) {
+    	public String registration(@ModelAttribute ParentObject parent,@RequestParam("username") String username,@RequestParam("email") String email,
+		@RequestParam("password") String password,@RequestParam("dd") String birthDay,@RequestParam("mm")String birthMonth,@RequestParam("yyyy")String birthYear, Model model) {
 
+		String role = "PARENT";
 	
-        	//userStoreService.save(userForm);
+		String birthDateString = birthMonth+"/"+birthDay+"/"+birthYear;
+		out.println(birthDateString);
+	
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
+		Date birthDate=null;
+		try {
+		    birthDate = df.parse(birthDateString);
+		} catch (ParseException e) {
+    			e.printStackTrace();
+		}
 
-        	securityService.autologin(userForm.getUsername(), userForm.getPassword());
-		out.println("here3");
-        	return "redirect:/index";
+		parent.setBirthDate(birthDate);
+		parent.setMoney(0);
+		
+		UserObject newUser = new UserObject(email,username,password,role); 
+
+	        userService.saveUser(newUser,parent);	
+
+       		securityService.autologin(username, password);
+        
+		return "redirect:/";
     	}
 
     }

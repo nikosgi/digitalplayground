@@ -25,7 +25,7 @@
                 <section>
                     <h1 class="entry-title"><span>Sign Up</span> </h1>
                     <hr/>
-                    <form class="form-horizontal" method="post" name="signup" id="signup" enctype="multipart/form-data" >
+                    <form class="form-horizontal" method="post" name="signup" id="signup" enctype="multipart/form-data" th:object="${parent}" >
                         
 			<div class="form-group">
                             <label class="control-label col-sm-3">Username <span class="text-danger">*</span></label>
@@ -41,7 +41,7 @@
                             <div class="col-md-8 col-sm-9">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                    <input type="email" class="form-control" name="emailid" id="emailid" placeholder="Enter your Email ID" value=""/>
+                                    <input type="email" class="form-control" name="email" id="emailid" placeholder="Enter your Email ID" value=""/>
                                 </div>
                             </div>
                         </div>
@@ -110,7 +110,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">Country <span class="text-danger">*</span></label>
                             <div class="col-md-8 col-sm-9">
-                                <input type="text" class="form-control" name="country" id="cellphone" placeholder="Enter your country here" value=""/>
+                                <input type="text" class="form-control" name="country" id="county" placeholder="Enter your country here" value=""/>
                             </div>
                         </div>
 
@@ -154,6 +154,7 @@
                                 <input name="Submit" type="submit" value="Sign Up" class="btn btn-primary"/>
                             </div>
                         </div>
+
                     </form>
                 </section>
             </div>
