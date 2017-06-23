@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           	.antMatchers("/login","/","/css/**","/img/**","/js/**").permitAll()
 	  	.antMatchers("/signup*").permitAll()
 		.antMatchers("/user/**").permitAll()//hasAuthority("ADMIN")
-          	.antMatchers("/event/**").hasAuthority("ADMIN")
+          	.antMatchers("/event/**").hasAnyAuthority("ADMIN","PARENT")	
           	.anyRequest().authenticated()
 	  	.and().csrf().disable() 
           .formLogin()
