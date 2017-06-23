@@ -10,13 +10,16 @@ import com.dp.digip.models.User;
 import com.dp.digip.components.AuthenticationFacade;
 import com.dp.digip.models.DTO.UserObject;
 import com.dp.digip.models.DTO.ParentObject;
-
+import com.dp.digip.components.interfaces.ServerLocationBo;
+import com.dp.digip.models.DTO.ServerLocation;
 
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
 
 
+
+import org.springframework.web.servlet.ModelAndView; 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -44,6 +47,10 @@ import java.text.ParseException;
 @Controller
 public class MainController {
 
+
+    @Autowired 
+    private ServerLocationBo serverLocationBo;
+
     @Autowired
     private AuthenticationFacade authenticationFacade; 
 
@@ -52,6 +59,9 @@ public class MainController {
 
     @Autowired
     private UserDAO userDao;
+
+    @Autowired
+    private HttpServletRequest request;
 
     @RequestMapping("/")
     public String welcome(Model model) {
@@ -83,10 +93,26 @@ public class MainController {
     }
 
     @RequestMapping("/map")
-    public String map(Model model) {
+    public ModelAndView map(Model model){//,HttpServletRequest request) {
         model.addAttribute("events",eventDao.findAll());
         model.addAttribute("imgUrl", "http://localhost:8080/event/image/");
-        return "map";
+
+	//out.println("The ip is = ");
+	//out.println(request.getHeader("X-FORWARDED-FOR"));	
+	//out.println(request.getRemoteAddr());
+	String ip="4.2.2.2";
+	ServerLocation location = serverLocationBo.getLocation(ip);
+
+	if ( location == null)
+		out.println("bad");
+
+	
+	String result = location.toString();
+	out.println(result);
+
+
+	return new ModelAndView("map","clientLocation",location);
+        //return "map";
     }
 
     @Controller
