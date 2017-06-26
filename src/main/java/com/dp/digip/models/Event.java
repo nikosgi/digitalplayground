@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.sql.Blob;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 /**
  * An entity User composed by three fields (id, email, name).
  * The Entity annotation indicates that this class is a JPA entity.
@@ -27,7 +28,7 @@ public class Event implements Serializable{
     	@Id
     	@GeneratedValue(strategy = GenerationType.AUTO)
     	@Column( unique = true,nullable = false)
-    	private long id;
+    	private Long id;
 
     	@Column( unique = true,nullable = false)
     	private String name;
@@ -100,6 +101,10 @@ public class Event implements Serializable{
 	@JoinColumn(name = "user_id",nullable = false, referencedColumnName="id")
 	private User user;
 
+	@OneToMany(mappedBy = "event",cascade = CascadeType.ALL)
+	private Set<Transaction> transactions;
+
+
 	public Event(){}
 
     	public Event(String name,byte[] image,String description,User user) {
@@ -130,6 +135,15 @@ public class Event implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public Set<Transaction> getTransactions(){
+		return this.transactions;
+	}
+
+	public void setTransactions( Set<Transaction> transaction){
+		this.transactions = transaction;
+	}
+
 
 /*	public String getCountry() {
 		return country;

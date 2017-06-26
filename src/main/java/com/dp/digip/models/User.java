@@ -52,8 +52,8 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Event> events;
 
-
-
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private Set<Transaction> transactions;
 
     public User() { }
 
@@ -153,7 +153,14 @@ public class User implements Serializable{
     public void setEvents(Set<Event> events){
 	this.events= events;
     }
-	
+
+    public Set<Transaction> getTransactions(){
+	return this.transactions;
+    }	
+
+    public void setTransactions( Set<Transaction> transaction){
+	this.transactions = transaction;
+    }
 
 
 }
