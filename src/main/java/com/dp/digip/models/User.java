@@ -1,26 +1,30 @@
 package com.dp.digip.models;
 
-/**
- * Created by Nikos on 21/5/2017.
- */
-import javax.persistence.*;
 
+
+
+import javax.persistence.*;
+import org.hibernate.search.annotations.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
+//import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
 
 import com.dp.digip.models.DTO.UserObject;
 import java.io.Serializable;
-/**
- * An entity User composed by three fields (id, email, name).
- * The Entity annotation indicates that this class is a JPA entity.
- * The Table annotation specifies the name for the table in the db.
- *
- * @author netgloo
- */
+
 
 @Entity
-@Table(name = "user")
+@Indexed
+@Table(name = "user")/*
+@AnalyzerDefs({
+	@AnalyzerDef(
+		name = "en",
+		tokenizer = @TokenizerDef( factory = StandardTokenizerFactory.class),
+		filters =
+
+
+})*/
 public class User implements Serializable{
 
     @Id
@@ -34,9 +38,11 @@ public class User implements Serializable{
     @Transient
     private String role_temp;
 
+    @Field
     @Column( unique = true,nullable = false)
     private String username;
 
+    @Field
     @Column( unique = true,nullable = true)
     private String email=null;
     
@@ -52,8 +58,8 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Event> events;
 
-
-
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private Set<Transaction> transactions;
 
     public User() { }
 
@@ -153,7 +159,14 @@ public class User implements Serializable{
     public void setEvents(Set<Event> events){
 	this.events= events;
     }
-	
+
+    public Set<Transaction> getTransactions(){
+	return this.transactions;
+    }	
+
+    public void setTransactions( Set<Transaction> transaction){
+	this.transactions = transaction;
+    }
 
 
 }

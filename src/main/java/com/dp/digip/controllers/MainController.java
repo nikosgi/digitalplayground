@@ -1,8 +1,6 @@
 package com.dp.digip.controllers;
 
-/**
- * Created by Nikos on 21/5/2017.
- */
+
 
 import com.dp.digip.models.DAO.EventDAO;
 import com.dp.digip.models.DAO.UserDAO;
@@ -10,13 +8,16 @@ import com.dp.digip.models.User;
 import com.dp.digip.components.AuthenticationFacade;
 import com.dp.digip.models.DTO.UserObject;
 import com.dp.digip.models.DTO.ParentObject;
-
+import com.dp.digip.components.interfaces.ServerLocationBo;
+import com.dp.digip.models.DTO.ServerLocation;
 
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
 
 
+
+import org.springframework.web.servlet.ModelAndView; 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -39,10 +40,16 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat; 
 
 import java.text.ParseException;
-
+import java.lang.Exception;
+import java.util.concurrent.Callable;
+import java.lang.Thread;
 
 @Controller
 public class MainController {
+
+
+    @Autowired 
+    private ServerLocationBo serverLocationBo;
 
     @Autowired
     private AuthenticationFacade authenticationFacade; 
@@ -52,6 +59,10 @@ public class MainController {
 
     @Autowired
     private UserDAO userDao;
+
+    @Autowired
+    private HttpServletRequest request;
+
 
     @RequestMapping("/")
     public String welcome(Model model) {
@@ -71,14 +82,73 @@ public class MainController {
 		else
 			out.println("bye");
 
+	out.println("in index ");
+
+	Authentication auth = authenticationFacade.getAuthentication();
+	Object princ = auth.getPrincipal();
+	
+	out.println("\n\n");	
+
+	if ( princ.toString() != null )	{
+		out.println(auth.getName()+"\n");
+		out.println(auth.toString()+"\n" ) ;
+		out.println(princ.toString()+"\n" );
+	}	
+	else
+		out.println("bye");
+
+
+	//Object cred = auth.getCredentials();
+	//Object det = auth.getDetails();
+
+	//out.println(cred.toString() ) ;
+  	//out.println(auth.getDetails().toString() );        
+	
+
         return "index";
     }
 
+/*
+    @RequestMapping("/")
+    public Callable<String> welcome(Model model){
+	
+	return new Callable<String>(){
+
+		public String call() throws Exception{
+
+			Thread.sleep(10000);
+			out.println("outputing after sleep");
+			return "index";
+		}
+		
+	};
+
+
+    }   
+
+*/
+
     @RequestMapping("/map")
-    public String map(Model model) {
+    public ModelAndView map(Model model){//,HttpServletRequest request) {
         model.addAttribute("events",eventDao.findAll());
         model.addAttribute("imgUrl", "http://localhost:8080/event/image/");
-        return "map";
+
+	//out.println("The ip is = ");
+	//out.println(request.getHeader("X-FORWARDED-FOR"));	
+	//out.println(request.getRemoteAddr());
+	String ip="4.2.2.2";
+	ServerLocation location = serverLocationBo.getLocation(ip);
+
+	if ( location == null)
+		out.println("bad");
+
+	
+	String result = location.toString();
+	out.println(result);
+
+
+	return new ModelAndView("map","clientLocation",location);
+        //return "map";
     }
     @RequestMapping("/search")
     public String s(Model model) {
@@ -86,6 +156,8 @@ public class MainController {
     }
 
     @RequestMapping
+
+
 
     @Controller
     public class SignupController {

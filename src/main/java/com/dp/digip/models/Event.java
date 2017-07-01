@@ -1,13 +1,13 @@
 package com.dp.digip.models;
 
-/**
- * Created by Nikos on 21/5/2017.
- */
+
 import javax.persistence.*;
+import org.hibernate.search.annotations.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Blob;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 /**
  * An entity User composed by three fields (id, email, name).
  * The Entity annotation indicates that this class is a JPA entity.
@@ -16,6 +16,7 @@ import java.util.Date;
  * @author netgloo
  */
 @Entity
+@Indexed
 @Table(name = "event")
 public class Event implements Serializable{
 
@@ -27,8 +28,9 @@ public class Event implements Serializable{
     	@Id
     	@GeneratedValue(strategy = GenerationType.AUTO)
     	@Column( unique = true,nullable = false)
-    	private long id;
+    	private Long id;
 
+	@Field
     	@Column( unique = true,nullable = false)
     	private String name;
 /*
@@ -89,6 +91,7 @@ public class Event implements Serializable{
     	@Column ( unique = false , nullable = false)
     	private int ticket_number_remaining;
 */
+	@Field
     	@Column( unique = false, nullable = true)
     	private String description;
 
@@ -99,6 +102,10 @@ public class Event implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "user_id",nullable = false, referencedColumnName="id")
 	private User user;
+
+	@OneToMany(mappedBy = "event",cascade = CascadeType.ALL)
+	private Set<Transaction> transactions;
+
 
 	public Event(){}
 
@@ -130,6 +137,15 @@ public class Event implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public Set<Transaction> getTransactions(){
+		return this.transactions;
+	}
+
+	public void setTransactions( Set<Transaction> transaction){
+		this.transactions = transaction;
+	}
+
 
 /*	public String getCountry() {
 		return country;
