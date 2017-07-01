@@ -1,9 +1,8 @@
 package com.dp.digip.models;
 
-/**
- * Created by Nikos on 21/5/2017.
- */
+
 import javax.persistence.*;
+import org.hibernate.search.annotations.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Blob;
 import java.io.Serializable;
@@ -17,6 +16,7 @@ import java.util.Set;
  * @author netgloo
  */
 @Entity
+@Indexed
 @Table(name = "event")
 public class Event implements Serializable{
 
@@ -30,6 +30,7 @@ public class Event implements Serializable{
     	@Column( unique = true,nullable = false)
     	private Long id;
 
+	@Field
     	@Column( unique = true,nullable = false)
     	private String name;
 /*
@@ -90,6 +91,7 @@ public class Event implements Serializable{
     	@Column ( unique = false , nullable = false)
     	private int ticket_number_remaining;
 */
+	@Field
     	@Column( unique = false, nullable = true)
     	private String description;
 

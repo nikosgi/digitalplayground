@@ -1,8 +1,6 @@
 package com.dp.digip.controllers;
 
-/**
- * Created by Nikos on 21/5/2017.
- */
+
 
 import com.dp.digip.models.DAO.EventDAO;
 import com.dp.digip.models.DAO.UserDAO;
@@ -42,7 +40,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat; 
 
 import java.text.ParseException;
-
+import java.lang.Exception;
+import java.util.concurrent.Callable;
+import java.lang.Thread;
 
 @Controller
 public class MainController {
@@ -62,6 +62,7 @@ public class MainController {
 
     @Autowired
     private HttpServletRequest request;
+
 
     @RequestMapping("/")
     public String welcome(Model model) {
@@ -83,14 +84,36 @@ public class MainController {
 	else
 		out.println("bye");
 
+
 	//Object cred = auth.getCredentials();
 	//Object det = auth.getDetails();
 
 	//out.println(cred.toString() ) ;
   	//out.println(auth.getDetails().toString() );        
+	
 
         return "index";
     }
+
+/*
+    @RequestMapping("/")
+    public Callable<String> welcome(Model model){
+	
+	return new Callable<String>(){
+
+		public String call() throws Exception{
+
+			Thread.sleep(10000);
+			out.println("outputing after sleep");
+			return "index";
+		}
+		
+	};
+
+
+    }   
+
+*/
 
     @RequestMapping("/map")
     public ModelAndView map(Model model){//,HttpServletRequest request) {
@@ -114,6 +137,8 @@ public class MainController {
 	return new ModelAndView("map","clientLocation",location);
         //return "map";
     }
+
+
 
     @Controller
     public class SignupController {
