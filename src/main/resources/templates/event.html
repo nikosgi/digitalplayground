@@ -5,16 +5,19 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/css/navbar.css}"/>
+    
     <link rel="stylesheet" th:href="@{/css/event.css}"/>
+    <link rel="stylesheet" th:href="@{/css/navbar.css}"/>
     <!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>-->
     <link href="https://fonts.googleapis.com/css?family=Finger+Paint" rel="stylesheet"/>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <title>Digital Playground</title>
     <!--<script th:src="@{/js/event-map.js}"></script>-->
     <script src="//maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script th:src="@{/js/event-map.js}" />
     <script th:src="@{/js/counter.js}"/>
+    <script th:src="@{/js/confirm-payment.js}"/>
 </head>
 
 <body class="main">
@@ -60,19 +63,37 @@
                         <h3>Tickets</h3>
                     </div><br/>
                     <div class="ticket-available">
-                        <h4>Available : 162</h4>
+                        <h4>10$ / Ticket</h4>
                     </div>
-                    <form class="checkout">
+                    <form class="checkout" method="post">
                         <label for="qty"></label>
-                        <button type="button">
+                        <button type="button" class="ticket-number">
                             <span><i class="glyphicon glyphicon-minus" onclick="modify_qty(-1)"></i></span>
                         </button>
                         <input id="qty" value="0" />
-                        <button type="button">
+                        <button type="button" class="ticket-number">
                             <span><i class="glyphicon glyphicon-plus" onclick="modify_qty(1)"></i></span>
                         </button>
                     </form><br/>
-                    <button type="submit" class="ticket-button">Book Now</button>
+                    <button id ="myBtn" class="ticket-button">Book Now</button>
+                    <!-- The Modal -->
+                    <div id="myModal" class="modal">
+
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span class="close">&times;</span>
+                                <h2>Confirm Booking</h2>
+                            </div>
+                            <div class="modal-body">
+                                <span id="demo"></span><p>Tickets</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="confirm-button">Confirm</button>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
                 <div class="organized">
                     <div class="organized-header">

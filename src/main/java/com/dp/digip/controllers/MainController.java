@@ -58,26 +58,18 @@ public class MainController {
         model.addAttribute("events",eventDao.findAll());
         model.addAttribute("imgUrl", "http://localhost:8080/event/image/");
 
-	out.println("in index ");
+		out.println("in index ");
 
-	Authentication auth = authenticationFacade.getAuthentication();
-	Object princ = auth.getPrincipal();
-	
-	out.println("\n\n");	
-
-	if ( princ.toString() != null )	{
-		out.println(auth.getName()+"\n");
-		out.println(auth.toString()+"\n" ) ;
-		out.println(princ.toString()+"\n" );
-	}	
-	else
-		out.println("bye");
-
-	//Object cred = auth.getCredentials();
-	//Object det = auth.getDetails();
-
-	//out.println(cred.toString() ) ;
-  	//out.println(auth.getDetails().toString() );        
+		Authentication auth = authenticationFacade.getAuthentication();
+		Object princ = auth.getPrincipal();
+		out.println("\n\n");	
+		if ( princ.toString() != null )	{
+			out.println(auth.getName()+"\n");
+			out.println(auth.toString()+"\n" ) ;
+			out.println(princ.toString()+"\n" );
+		}	
+		else
+			out.println("bye");
 
         return "index";
     }
@@ -88,14 +80,20 @@ public class MainController {
         model.addAttribute("imgUrl", "http://localhost:8080/event/image/");
         return "map";
     }
+    @RequestMapping("/search")
+    public String s(Model model) {
+        return "search";
+    }
+
+    @RequestMapping
 
     @Controller
     public class SignupController {
-	@Autowired
-	private UserServiceImpl userService;
+		@Autowired
+		private UserServiceImpl userService;
 
-	@Autowired
-	private SecurityService securityService;
+		@Autowired
+		private SecurityService securityService;
 
     	@RequestMapping(value = "/signup", method = RequestMethod.GET)
     	public String registration(Model model) {
@@ -111,10 +109,8 @@ public class MainController {
 		@RequestParam("password") String password,@RequestParam("dd") String birthDay,@RequestParam("mm")String birthMonth,@RequestParam("yyyy")String birthYear, Model model) {
 
 		String role = "PARENT";
-	
 		String birthDateString = birthMonth+"/"+birthDay+"/"+birthYear;
-		out.println(birthDateString);
-	
+
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
 		Date birthDate=null;
 		try {
@@ -132,7 +128,7 @@ public class MainController {
 
        		securityService.autologin(username, password);
         
-		return "redirect:/";
+		return "signup";
     	}
 
     }

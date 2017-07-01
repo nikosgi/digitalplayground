@@ -37,3 +37,7 @@ input.upload {
 .control-label {
     color:#333333;
 }
+input[type=radio] {
+   position:fixed;
+   left:-9999px;
+}

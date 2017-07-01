@@ -96,7 +96,7 @@
     padding: 0;
 }
 
-.tickets .ticket-button{
+.tickets .ticket-button, .tickets .confirm-button{
     font-size: large;
     height:50px;
     width:100%;
@@ -107,4 +107,55 @@
     border-left: 0;
     box-shadow:none;
     margin: 0px; !important;
+}
+.tickets .ticket-button:hover, .tickets .confirm-button:hover{
+    color: #00adb5;
+}
+
+.tickets .ticket-button:focus, .tickets .confirm-button:focus{
+    outline: none;
+}
+.tickets .confirm-button{
+    border:none;
+}
+
+.tickets .ticket-number .glyphicon{
+    width:30px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    width:100%;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    width:500px;
+    background: #222831;
+    margin:30px auto 0;
+    padding:6px;
+    position:absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -250px;
+    margin-top: -10%;
+    border: 2px solid #d8dfe2;
+    box-shadow: 0 0 6px 3px #222831;
+}
+
+
+/* The Close Button */
+.close {
+    color: #d8dfe2;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }

@@ -76,6 +76,8 @@
 .follow .glyphicon, .message .glyphicon{
     top:3px;
 }
+
+
 .follow ,  .message{
     text-align: center;
     position:relative;

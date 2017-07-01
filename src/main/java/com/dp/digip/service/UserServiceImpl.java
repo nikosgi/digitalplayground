@@ -32,11 +32,11 @@ public class UserServiceImpl implements UserService{
 
 	  Parent parent = new Parent(newParent);
 	  User user = new User(newUser.getEmail(),newUser.getUsername(),bCryptPasswordEncoder.encode(newUser.getPassword()) ,new Role(newUser.getRole()), parent); 
-
+      
 	  out.println(user.getEmail());
-
+      out.println("BLABLABLA");
 	  userDao.save(user);
-//        User user = new User(newUser.getEmail(),newUser.getUsername(),bCryptPasswordEncoder.encode(newUser.getPassword()),new Role(newUser.getRole_temp()) );        
+//        User user = new User(newUser.getEmai13l(),newUser.getUsername(),bCryptPasswordEncoder.encode(newUser.getPassword()),new Role(newUser.getRole_temp()) );        
 //        userDao.save(user);
     }
 
