@@ -7,7 +7,7 @@ import javax.persistence.*;
 import org.hibernate.search.annotations.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
-
+import java.util.HashSet;
 //import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
 
 import com.dp.digip.models.DTO.UserObject;
@@ -59,7 +59,9 @@ public class User implements Serializable{
     private Set<Event> events;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private Set<Transaction> transactions;
+    private Set<Transaction> transactions ;
+
+    
 
     public User() { }
 
@@ -104,6 +106,10 @@ public class User implements Serializable{
 
 
     // Getter and setter methods
+    public Long getId(){
+	return this.id;	
+    }
+
 
     public String getPassword(){ return this.password;}
     public void setPassword(String pass){ this.password = pass;}

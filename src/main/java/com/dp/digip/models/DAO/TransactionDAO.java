@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Transactional
-public interface TransactionDAO extends CrudRepository<Transaction, TransactionId> {
+public interface TransactionDAO extends CrudRepository<Transaction, Long> {
 
 
 }

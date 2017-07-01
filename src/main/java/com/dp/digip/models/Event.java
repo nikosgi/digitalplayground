@@ -60,10 +60,10 @@ public class Event implements Serializable{
 
     	@Column( unique = false,nullable = true)
     	private int age_to;
-
+*/
     	@Column( unique = false,nullable = false)
     	private int cost;
-
+/*
     	@Column( unique = false,nullable = false)
     	private String start_time;
 
@@ -84,13 +84,13 @@ public class Event implements Serializable{
     	@Column ( unique =false , nullable = false)
     	private int online;
 
-
-    	@Column ( unique = false , nullable = false)
-    	private int ticket_number_initial;
-
-    	@Column ( unique = false , nullable = false)
-    	private int ticket_number_remaining;
 */
+    	@Column ( unique = false , nullable = false)
+    	private int tickets_initial;
+
+    	@Column ( unique = false , nullable = false)
+    	private int tickets_remaining;
+
 	@Field
     	@Column( unique = false, nullable = true)
     	private String description;
@@ -218,7 +218,7 @@ public class Event implements Serializable{
 	public void setAge_to(int age_to) {
 		this.age_to = age_to;
 	}
-
+*/
 	public int getCost() {
 		return cost;
 	}
@@ -226,11 +226,10 @@ public class Event implements Serializable{
 	public void setCost(int cost) {
 		this.cost = cost;
 	}
-
+/*
 	public String getStart_time() {
-		return start_time;
+		return this.start_time;
 	}
-
 	public void setStart_time(String start_time) {
 		this.start_time = start_time;
 	}
@@ -274,23 +273,23 @@ public class Event implements Serializable{
 	public void setOnline(int online) {
 		this.online = online;
 	}
-
-	public int getTicket_number_initial() {
-		return ticket_number_initial;
-	}
-
-	public void setTicket_number_initial(int ticket_number_initial) {
-		this.ticket_number_initial = ticket_number_initial;
-	}
-
-	public int getTicket_number_remaining() {
-		return ticket_number_remaining;
-	}
-
-	public void setTicket_number_remaining(int ticket_number_remaining) {
-		this.ticket_number_remaining = ticket_number_remaining;
-	}
 */
+	public int getTicketsInitial() {
+		return tickets_initial;
+	}
+
+	public void setTicketsInitial(int ticket_number_initial) {
+		this.tickets_initial = ticket_number_initial;
+	}
+
+	public int getTicketsRemaining() {
+		return tickets_remaining;
+	}
+
+	public void setTicketsRemaining(int ticket_number_remaining) {
+		this.tickets_remaining = ticket_number_remaining;
+	}
+
 	public String getDescription() {
 		return description;
 	}

@@ -8,19 +8,21 @@ import java.io.Serializable;
 @Entity
 public class Transaction{
 
-	@EmbeddedId
-	private TransactionId id; 
+	@Id
+    	@GeneratedValue(strategy = GenerationType.AUTO)
+        @Column( unique = true,nullable = false)
+	private Long id;
+
 
 	@Column(nullable = false)
 	private int number_of_tickets;
 
-	@MapsId("userId")
-	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	
+	@JoinColumn(name = "user_id",nullable = false, referencedColumnName = "id")
 	@ManyToOne
 	private User user;
 
-	@MapsId("eventId")
-	@JoinColumn(name ="event_id",referencedColumnName = "id")
+	@JoinColumn(name ="event_id",nullable = false,referencedColumnName = "id")
 	@ManyToOne
 	private Event event;
 
@@ -39,5 +41,20 @@ public class Transaction{
 		this.number_of_tickets = number_of_tickets ;
 	}
 
+	public User getUser(){
+		return this.user;
+	}
+
+	public void setUser(User user){
+		this.user = user;
+	}
+
+	public Event getEvent(){
+		return this.event;
+	}
+	
+	public void setEvent(Event event){
+		this.event = event;
+	}
 
 }  

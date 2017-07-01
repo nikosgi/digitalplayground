@@ -4,9 +4,11 @@ package com.dp.digip.controllers;
  * Created by Nikos on 21/5/2017.
  */
 import com.dp.digip.models.Event;
+import com.dp.digip.models.DAO.TransactionDAO;
 import com.dp.digip.models.DAO.EventDAO;
 import com.dp.digip.models.DAO.UserDAO;
 import com.dp.digip.models.User;
+import com.dp.digip.models.Transaction;
 import com.dp.digip.components.AuthenticationFacade;
 import org.springframework.security.core.Authentication;
 
@@ -27,12 +29,16 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import org.springframework.web.bind.annotation.*;
+
+
 import javax.validation.Valid;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Blob;
 import java.util.Arrays;
+import java.util.HashSet;
 
 @Controller
 @RequestMapping("event")
@@ -46,6 +52,10 @@ public class EventController {
 
     @Autowired
     private EventDAO eventDao;
+
+    @Autowired
+    private TransactionDAO transactionDao;
+
 
     @RequestMapping(value ="")
     public String index(Model model){
@@ -85,6 +95,63 @@ public class EventController {
         return "/event";
 
     }
+
+    @RequestMapping(value = "/eventer",method = RequestMethod.GET)
+    public String ckeckoutEvent(Model model){
+	Long event_id = new Long(3);
+	int tickets = 2;
+
+	Event event = eventDao.findOne(event_id);
+	
+	int tickets_initial = event.getTicketsInitial();
+	int tickets_remaining = event.getTicketsRemaining();
+			
+	if ( tickets_remaining - tickets < 0 ){
+		System.out.println("\n dont have so much tickets");	
+		return "/errorError";
+	}
+
+	System.out.println("Event requested is \n\n\n");	
+
+	event.setTicketsRemaining( tickets_remaining - tickets);
+	eventDao.save(event);
+
+        Authentication auth = authenticationFacade.getAuthentication();
+        String username = auth.getName();
+
+        User userBuyer = userDao.findByUsername(username);	
+
+	Transaction trans = new Transaction(tickets, userBuyer, event);	
+	
+	transactionDao.save(trans);		
+
+	return "/index";		
+
+    }
+    
+    @RequestMapping(value = "/more",method = RequestMethod.GET)
+    public String more(Model model){
+	Long trans_id = new Long(1);
+
+	Transaction trans = transactionDao.findOne(trans_id);
+	
+	User user = trans.getUser();	
+
+	System.out.println(user.getUsername());
+
+	System.out.println("\n\n\n\n\nHEY");
+	HashSet<Transaction> trans_set = new HashSet<Transaction>(user.getTransactions());
+	if ( trans_set == null)
+		System.out.println("\n\n\n\n\n bye bull" );
+	else{
+		System.out.println(trans_set.size());
+	}
+	if ( trans_set.contains(trans) )
+		System.out.println("hey i am here");	
+
+	return "/index";
+    }
+
 
     @RequestMapping(value = "/image/{image_id}",method = RequestMethod.GET, produces = MediaType.IMAGE_PNG_VALUE)
     @ResponseBody

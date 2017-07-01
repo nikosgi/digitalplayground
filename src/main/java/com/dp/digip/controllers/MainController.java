@@ -5,11 +5,15 @@ package com.dp.digip.controllers;
 import com.dp.digip.models.DAO.EventDAO;
 import com.dp.digip.models.DAO.UserDAO;
 import com.dp.digip.models.User;
+import com.dp.digip.models.Parent;
 import com.dp.digip.components.AuthenticationFacade;
 import com.dp.digip.models.DTO.UserObject;
 import com.dp.digip.models.DTO.ParentObject;
 import com.dp.digip.components.interfaces.ServerLocationBo;
 import com.dp.digip.models.DTO.ServerLocation;
+import com.dp.digip.service.GeneralService;
+import com.dp.digip.CustomSearch;
+
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -44,9 +48,13 @@ import java.lang.Exception;
 import java.util.concurrent.Callable;
 import java.lang.Thread;
 
+import java.util.List;
+
 @Controller
 public class MainController {
 
+    @Autowired
+    private CustomSearch search;
 
     @Autowired 
     private ServerLocationBo serverLocationBo;
@@ -63,27 +71,16 @@ public class MainController {
     @Autowired
     private HttpServletRequest request;
 
+    @Autowired
+    private GeneralService generalService;
 
     @RequestMapping("/")
     public String welcome(Model model) {
         model.addAttribute("events",eventDao.findAll());
         model.addAttribute("imgUrl", "http://localhost:8080/event/image/");
 
-		out.println("in index ");
-
-		Authentication auth = authenticationFacade.getAuthentication();
-		Object princ = auth.getPrincipal();
-		out.println("\n\n");	
-		if ( princ.toString() != null )	{
-			out.println(auth.getName()+"\n");
-			out.println(auth.toString()+"\n" ) ;
-			out.println(princ.toString()+"\n" );
-		}	
-		else
-			out.println("bye");
-
 	out.println("in index ");
-
+	
 	Authentication auth = authenticationFacade.getAuthentication();
 	Object princ = auth.getPrincipal();
 	
@@ -128,14 +125,23 @@ public class MainController {
 
 */
 
-    @RequestMapping("/map")
-    public ModelAndView map(Model model){//,HttpServletRequest request) {
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    public String map(Model model,@RequestParam("username") String username){//,HttpServletRequest request) {
         model.addAttribute("events",eventDao.findAll());
         model.addAttribute("imgUrl", "http://localhost:8080/event/image/");
 
-	//out.println("The ip is = ");
-	//out.println(request.getHeader("X-FORWARDED-FOR"));	
-	//out.println(request.getRemoteAddr());
+	//lucene search for that user.
+	/*	
+	List<User> resultSet = null;
+	resultSet = search.userSearch(username);		 		
+	
+	User user = resultSet.get(0);
+	out.println(user.getUsername());
+	out.println("here");	
+	*/
+
+
+////////location
 	String ip="4.2.2.2";
 	ServerLocation location = serverLocationBo.getLocation(ip);
 
@@ -146,10 +152,23 @@ public class MainController {
 	String result = location.toString();
 	out.println(result);
 
+	model.addAttribute("clientLocation",location);
 
-	return new ModelAndView("map","clientLocation",location);
-        //return "map";
+
+//////////parent
+	Parent parent = generalService.parentFromUsername(username);
+
+	out.println(parent.getName());
+	
+	model.addAttribute("parent",parent);	
+
+	
+
+
+        return "map";
     }
+
+
     @RequestMapping("/search")
     public String s(Model model) {
         return "search";
