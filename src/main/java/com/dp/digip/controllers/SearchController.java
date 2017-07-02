@@ -23,7 +23,42 @@ public class SearchController {
 	@Autowired
 	private CustomSearch search;
 
-	@RequestMapping("/freeuser")
+
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public String search( Model model , @RequestParam("srch-term")String q ) {
+		List<User> users = null;
+		List<Event> events = null;
+
+                try{
+                        users = search.userSearch(q);
+                }
+                catch ( Exception ex) {
+                        out.println("exception in userSearch");
+                }
+		
+                try{
+                        events = search.eventSearch(q);
+                }
+                catch( Exception ex) {
+                        out.println("exception in eventSearch");
+                }
+
+		if ( events.size() == 0 )
+			out.println("no events found ");
+
+		if ( users.size() == 0 )
+			out.println("no users found ");		
+
+		model.addAttribute("users",users);	 
+		model.addAttribute("events",events);
+		model.addAttribute("srch-term",q);
+		
+		return "/index";
+
+	}
+
+/*
+	@RequestMapping(value = "/freesearch",method = RequestMethod.POST)
 	public String freeUserSearch( Model m){
 		List<User> searchResult = null;
 		
@@ -55,7 +90,7 @@ public class SearchController {
 		return "index";
 	}	
 
-	@RequestMapping("/freeevent")
+	@RequestMapping( value = "/freeevent",method = RequestMethod.POST )
 	public String freeEventSearch(Model m ){
 		List<Event> searchResult = null;
 
@@ -84,7 +119,7 @@ public class SearchController {
                 
 	        return "index";
 	}
-
+*/
 
 
 
