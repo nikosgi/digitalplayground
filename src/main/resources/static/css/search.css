@@ -23,8 +23,8 @@
 
 }
 
-.back{
-
+.entry-title{
+	text-align: center;
 }
 
 .list-quotes {
@@ -145,4 +145,17 @@ input[type=radio] {
 
 .form-control{
 	width: 100%;
+}
+
+.slide-btn{
+	width:100%;
+	margin:0; !important
+}
+
+.glyphicon{
+	margin-right:5px;
+}
+
+#user-event-sllide{
+	width:100%;
 }

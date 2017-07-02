@@ -11,14 +11,19 @@
 
     <link rel="stylesheet" th:href="@{/css/bootstrap-slider.min.css}"/>
         <link rel="stylesheet" th:href="@{/css/search.css}"/>
-    <!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Finger+Paint" rel="stylesheet"/>
+    <script src="http://code.jquery.com/jquery-3.2.1.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+    
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script th:src="@{/js/datepicker.js}" />
     <script th:src="@{/js/bootstrap-slider.min.js}"/>
+    <script th:src="@{/js/slide-event-user.js}"/>
+   
     <title>Digital Playground</title>
 
 </head>
@@ -27,12 +32,141 @@
 <div class="background">
     <nav th:replace="navbar :: navigation"></nav>
     <div class="container">
-        <div class="row">
+        <div class="row">   
+
+            <div class="col-xs-4 col-xs-offset-4">
+                <input id="user-event-slide" checked="true" type="checkbox" data-toggle="toggle" data-on="&lt;i class='glyphicon glyphicon-th-large'&gt;&lt;/i&gt;Events" data-off="&lt;i class='glyphicon glyphicon-user'&gt;&lt;/i&gt;Users" data-width="100%" data-height="45px"/>
+            </div>
+
+        </div><br/><br/>
+        <div class="row" id="events" style="display:block;">
 
             <div class="col-md-3">
                 <div class="back">
                 <section>
                 <h2 class="entry-title"><span>Filters</span> </h2>
+                <hr/>
+                    <form class="form-horizontal" method="post" name="signup" id="signup" enctype="multipart/form-data" th:object="${parent}" >
+                        <br/>
+                        <div class="header">
+                            <h4>Date</h4>
+                        </div><br/>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">From:</label>
+                            <div class="col-sm-9">
+                                <div class="input-group"> 
+                                    <input class="form-control" id="date-from" name="date" placeholder="DD / MM / YYYY" type="text"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">To:</label>
+                            <div class="col-sm-9">
+                                <div class="input-group"> 
+                                    <input class="form-control" id="date-to" name="date" placeholder="DD / MM / YYYY" type="text"/>
+                                </div>
+                            </div>
+                        </div><br/>
+                        <div class="header">
+                            <h4>Price</h4>
+                        </div><br/>
+                        <div class="form-group">
+                            <div class="row">
+                            <label class="control-label1 col-xs-6" id="low-val">0</label><label class="control-label1 col-xs-6" id="high-val">100</label></div>
+                            <div class="row">
+                            <div class="col-xs-10 col-xs-offset-2">
+                                <div class="input-group">
+                                    <input id="ex2" type="text" class="span2" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="[0,100]"/>
+                                </div>
+                            </div>
+                            </div>
+                        </div><br/>
+                        <div class="header">
+                            <h4>Location</h4>
+                        </div><br/>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Radius</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <input type="text" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header">
+                            <h4>Availability</h4>
+                        </div><br/>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3 btn btn-success active ">Available</label>
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    <input type="radio" class="form-control"/>
+                                </div>
+                            </div>
+                             <label class="control-label col-sm-3 btn btn-warning">Limited</label>
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    <input type="radio" class="form-control"/>
+                                </div>
+                            </div>
+                             <label class="control-label col-sm-3 btn btn-danger">Unavailable</label>
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    <input type="radio" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                </div>
+            </div>
+            <div class="col-xs-9">
+                <h2 class="entry-title"><span>Results</span> </h2><hr/>
+                <div th:each="event : ${events}">
+                        <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                            <p style="text-align:center; margin-top:20px;">
+                                <img th:src="@{${imgUrl+event.id}}"/>
+                            </p>
+                            <div class="caption">
+                                <div class="blur"></div>
+                                <div class="caption-text">
+                                    <h3 th:text="${event.name}" style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">THIS IS</h3>
+                                    <p th:text="${event.description}">Default Text</p>
+                                    <a class="btn btn-default" th:href="${'http://localhost:8080/event/' + event.id}"><span class="glyphicon glyphicon-plus"> INFO</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <a class="list-quotes" id="all" href="/">
+                         <!-- Recommended size 360X360 -->
+                        <img class='img-responsive' alt="img" src="http://images.shape.mdpcdn.com/sites/shape.com/files/styles/story_detail/public/story/dating-a-younger-man-700_0.jpg?itok=VdKivCyT"/>
+                        <div class="quotes">
+                            <h1>Lorem ipsum dolor</h1>
+                            <span class="year">Date</span>    
+                            <span class="cat-name">Name</span>
+                            <p>read more</p>
+                            </div>
+                    </a>
+                    <a class="list-quotes" id="past" href="/">
+                        <!-- Recommended size 360X360 -->
+                         <img class='img-responsive cover' alt="img" src="http://images.shape.mdpcdn.com/sites/shape.com/files/styles/story_detail/public/story/dating-a-younger-man-700_0.jpg?itok=VdKivCyT"/>
+                         <div class="quotes">
+                             <h1>Lasdf</h1>
+                             <span class="year">Date</span>
+                             <span class="cat-name">Name</span>
+                             <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. <span>...Read Mors</span>
+                            </p>
+                        </div>
+                    </a>
+                    
+            </div>
+        </div>
+        <div class="row" id="users" style="display:none;">
+
+            <div class="col-md-3">
+                <div class="back">
+                <section>
+                <h2 class="entry-title"><span>Filtersdfsdfs</span> </h2>
                 <hr/>
                     <form class="form-horizontal" method="post" name="signup" id="signup" enctype="multipart/form-data" th:object="${parent}" >
                         <br/>

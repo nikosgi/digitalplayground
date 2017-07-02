@@ -7,7 +7,6 @@
     <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/navbar.css}"/>
     <link rel="stylesheet" th:href="@{/css/index.css}"/>
-    <!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>-->
     <link href="https://fonts.googleapis.com/css?family=Finger+Paint" rel="stylesheet"/>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <title>Digital Playground</title>
@@ -21,141 +20,11 @@
 
     <div class="container">
 
-        <div class="row profile">
-            <div class="col-xs-4 left-side no-padding">
-                <div class="fb-profile">
-                    <div class="profile-name">
-                        <p class="name">Nikolaos Gerontakis</p>
-                    </div>
-                    <img class="img-responsive img-circle" src="http://via.placeholder.com/250x250" alt="Profile image example"/>
-                    <div class="row follow-message">
-                        <div class="col-xs-6">
-                            <div class="follow" sec:authorize="isAnonymous()">
-                                <i class="glyphicon glyphicon-user"></i>
-                                <a href="" class="msg">Follow</a>
-                            </div>
-                            <div class="follow" sec:authorize="isAuthenticated()">
-                                <i class="glyphicon glyphicon-user"></i>
-                                <a href="" class="msg">Followers</a>
-                            </div>
-                        </div>
-                        <div class="col-xs-6">
-                            <div class="message" sec:authorize="isAnonymous()">
-                                <i class="glyphicon glyphicon-envelope"></i>
-                                <a href="" class="msg">Message</a>
-                            </div>
-                            <div class="message" sec:authorize="isAuthenticated()">
-                                <i class="glyphicon glyphicon-envelope"></i>
-                                <a href="" class="msg">Messages</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-8 right-side">
-                <div class="outsite">
-                <div class="profile-userdetails">
-                    <ul class="nav">
-                        <li class="active">
-                            <a href="#">
-                                <i class="glyphicon glyphicon-home"></i>
-                                User Location </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="glyphicon glyphicon-user"></i>
-                                Account Settings </a>
-                        </li>
-                        <li>
-                            <a href="#" target="_blank">
-                                <i class="glyphicon glyphicon-ok"></i>
-                                Tasks </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="glyphicon glyphicon-flag"></i>
-                                Help </a>
-                        </li>
-                        <li>
-                            <a href="/logout">
-                <i class="glyphicon glyphicon-flag"></i>
-                Logout</a>
-            </li>
-            </ul>
-                </div>
-                </div>
-            </div>
-        </div><br/>
-
         <div class="row">
-            <div class="col-xs-8">
-
-                <div class="my-events">
-                    <div class="event-header">
-                        <h3>My Events</h3>
-                    </div>
-                    <div class="event-buttons btn-group btn-group-justified" role="group">
-                        <div class="btn-group" role="group"><button type="button" id="all-btn" class="btn btn-primary">All</button></div>
-                        <div class="btn-group" role="group"><button type="button" id="upcoming-btn" class="btn btn-success">Upcoming</button></div>
-                            <div class="btn-group" role="group"><button type="button" id="past-btn" class="btn btn-danger">Past</button></div>
-                    </div>
-                    
-                    <a class="list-quotes" id="all" href="/">
-                         <!-- Recommended size 360X360 -->
-                        <img class='img-responsive' alt="img" src="http://images.shape.mdpcdn.com/sites/shape.com/files/styles/story_detail/public/story/dating-a-younger-man-700_0.jpg?itok=VdKivCyT"/>
-                        <div class="quotes">
-                            <h1>Lorem ipsum dolor</h1>
-                            <span class="year">Date</span>    
-                            <span class="cat-name">Name</span>
-                            <p>read more</p>
-                            </div>
-                    </a>
-                    <a class="list-quotes" id="past" href="/">
-                        <!-- Recommended size 360X360 -->
-                         <img class='img-responsive cover' alt="img" src="http://images.shape.mdpcdn.com/sites/shape.com/files/styles/story_detail/public/story/dating-a-younger-man-700_0.jpg?itok=VdKivCyT"/>
-                         <div class="quotes">
-                             <h1>Lasdf</h1>
-                             <span class="year">Date</span>
-                             <span class="cat-name">Name</span>
-                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. <span>...Read Mors</span>
-                            </p>
-                        </div>
-                    </a>
-                    
-
-
-                    <div th:each="event : ${events}">
-                        <div class="cuadro_intro_hover " style="background-color:#cccccc;">
-                            <p style="text-align:center; margin-top:20px;">
-                                <img th:src="@{${imgUrl+event.id}}"/>
-                            </p>
-                            <div class="caption">
-                                <div class="blur"></div>
-                                <div class="caption-text">
-                                    <h3 th:text="${event.name}" style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">THIS IS</h3>
-                                    <p th:text="${event.description}">Default Text</p>
-                                    <a class="btn btn-default" th:href="${'http://localhost:8080/event/' + event.id}"><span class="glyphicon glyphicon-plus"> INFO</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-            <div class="col-xs-4">
-                <div class="reminders">
-                    <div class="reminders-header">
-                        <h3>Reminders</h3>
-                    </div>
-                </div>
-            </div>
+            <h1>Welcome to DP</h1>
         </div>
-
     </div>
-</div>
-<script th:src="@{/js/my-events.js}" />
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+           </div> 
 </body>
 
 

@@ -126,7 +126,7 @@ public class MainController {
 */
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public String map(Model model,@RequestParam("username") String username){//,HttpServletRequest request) {
+    public String profile(Model model,@RequestParam("username") String username){//,HttpServletRequest request) {
         model.addAttribute("events",eventDao.findAll());
         model.addAttribute("imgUrl", "http://localhost:8080/event/image/");
 
@@ -165,7 +165,7 @@ public class MainController {
 	
 
 
-        return "map";
+        return "profile";
     }
 
 

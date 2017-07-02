@@ -96,7 +96,7 @@ public class EventController {
 
     }
 
-    @RequestMapping(value = "/eventer",method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}",method = RequestMethod.POST)
     public String ckeckoutEvent(Model model){
 	Long event_id = new Long(3);
 	int tickets = 2;

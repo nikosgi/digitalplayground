@@ -50,10 +50,10 @@ public class UserController {
             model.addAttribute("title","Add user");
             return "user/add";
         }
-        	
-	User myUser = new User(newUser.getEmail(),newUser.getUsername(),newUser.getPassword(),new Role(newUser.getRole_temp()) );
-	//userDao.save(myUser);	
-        	
+            
+    User myUser = new User(newUser.getEmail(),newUser.getUsername(),newUser.getPassword(),new Role(newUser.getRole_temp()) );
+    //userDao.save(myUser); 
+            
 
         return "redirect:";
     }

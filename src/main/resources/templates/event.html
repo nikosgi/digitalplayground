@@ -65,7 +65,7 @@
                     <div class="ticket-available">
                         <h4>10$ / Ticket</h4>
                     </div>
-                    <form class="checkout" method="post">
+                    <form class="checkout" method="post" id="ticket-form">
                         <label for="qty"></label>
                         <button type="button" class="ticket-number">
                             <span><i class="glyphicon glyphicon-minus" onclick="modify_qty(-1)"></i></span>
@@ -89,7 +89,7 @@
                                 <span id="demo"></span><p>Tickets</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="confirm-button">Confirm</button>
+                                <input type="submit" form="ticket-form" value="Confirm" class="confirm-button"/>
                             </div>
                         </div>
 
