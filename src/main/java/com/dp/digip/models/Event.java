@@ -66,11 +66,11 @@ public class Event implements Serializable{
 /*
     	@Column( unique = false,nullable = false)
     	private String start_time;
-
-//    	@Temporal(TemporalType.DATE)
-//    	@Column( unique = false, nullable = false)
-//   	private Date date;
-    
+*/
+    	@Temporal(TemporalType.DATE)
+    	@Column( unique = false, nullable = false)
+   	private Date date;
+/*  
     	@Column( unique = false, nullable = true)
     	private String duration;
 
@@ -233,7 +233,7 @@ public class Event implements Serializable{
 	public void setStart_time(String start_time) {
 		this.start_time = start_time;
 	}
-
+*/
 	public Date getDate() {
 		return date;
 	}
@@ -241,7 +241,7 @@ public class Event implements Serializable{
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
+/*
 	public String getDuration() {
 		return duration;
 	}

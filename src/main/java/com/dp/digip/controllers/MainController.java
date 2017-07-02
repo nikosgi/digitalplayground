@@ -5,6 +5,8 @@ package com.dp.digip.controllers;
 import com.dp.digip.models.DAO.EventDAO;
 import com.dp.digip.models.DAO.UserDAO;
 import com.dp.digip.models.User;
+import com.dp.digip.models.Event;
+import com.dp.digip.models.Transaction;
 import com.dp.digip.models.Parent;
 import com.dp.digip.components.AuthenticationFacade;
 import com.dp.digip.models.DTO.UserObject;
@@ -49,6 +51,9 @@ import java.util.concurrent.Callable;
 import java.lang.Thread;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 public class MainController {
@@ -127,7 +132,15 @@ public class MainController {
 
     @RequestMapping(value = "/myprofile", method = RequestMethod.GET)
     public String myprofile(Model model){
-        model.addAttribute("events",eventDao.findAll());
+	
+	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+	Date currentDate = new Date();	
+	out.println(dateFormat.format(currentDate));
+
+	ArrayList<Event> pastEvents = new ArrayList<Event>();
+	ArrayList<Event> comingEvents = new ArrayList<Event>();
+
+	model.addAttribute("events",eventDao.findAll());
         model.addAttribute("imgUrl", "http://localhost:8080/event/image/");
 
         Authentication auth = authenticationFacade.getAuthentication();
@@ -138,8 +151,28 @@ public class MainController {
 	
 	model.addAttribute("user",user );
 	model.addAttribute("parent",parent);
-	
-	return "/myprofile";
+
+	Set<Transaction> transactions = user.getTransactions() ;
+
+	if ( transactions.size() != 0 ){
+		Event event = null;
+		Date eventDate = null;
+		for (Transaction trans : transactions){	
+
+			event =  trans.getEvent();
+			eventDate = event.getDate();
+		
+			if ( currentDate.after(eventDate) )
+				pastEvents.add(event);
+			else
+				comingEvents.add(event); 
+		}
+	}
+
+        model.addAttribute("pastEvents",pastEvents);
+        model.addAttribute("comingEvents",comingEvents);
+		
+	return "/index";
     }
 
 
