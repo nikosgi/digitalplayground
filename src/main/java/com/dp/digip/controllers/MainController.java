@@ -125,6 +125,24 @@ public class MainController {
 
 */
 
+    @RequestMapping(value = "/myprofile", method = RequestMethod.GET)
+    public String myprofile(Model model){
+        model.addAttribute("events",eventDao.findAll());
+        model.addAttribute("imgUrl", "http://localhost:8080/event/image/");
+
+        Authentication auth = authenticationFacade.getAuthentication();
+        String username = auth.getName();
+
+	User user = userDao.findByUsername(username);
+	Parent parent = generalService.parentFromUsername(username);
+	
+	model.addAttribute("user",user );
+	model.addAttribute("parent",parent);
+	
+	return "/myprofile";
+    }
+
+
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String profile(Model model,@RequestParam("username") String username){//,HttpServletRequest request) {
         model.addAttribute("events",eventDao.findAll());

@@ -14,15 +14,15 @@ public class Transaction{
 	private Long id;
 
 
-	@Column(nullable = false)
+	@Column(nullable = false,unique = false)
 	private int number_of_tickets;
 
 	
-	@JoinColumn(name = "user_id",nullable = false, referencedColumnName = "id")
+	@JoinColumn(name = "user_id",nullable = false,unique = false, referencedColumnName = "id")
 	@ManyToOne
 	private User user;
 
-	@JoinColumn(name ="event_id",nullable = false,referencedColumnName = "id")
+	@JoinColumn(name ="event_id",nullable = false,unique = false,referencedColumnName = "id")
 	@ManyToOne
 	private Event event;
 

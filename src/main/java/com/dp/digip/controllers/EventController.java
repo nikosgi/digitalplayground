@@ -97,9 +97,9 @@ public class EventController {
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.POST)
-    public String ckeckoutEvent(Model model){
-	Long event_id = new Long(3);
-	int tickets = 2;
+    public String ckeckoutEvent(@PathVariable("id") Long event_id , @RequestParam("qty") int tickets, Model model){
+	//Long event_id = new Long(3);
+	//int tickets = 2;
 
 	Event event = eventDao.findOne(event_id);
 	
