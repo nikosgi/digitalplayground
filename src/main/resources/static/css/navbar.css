@@ -83,7 +83,8 @@
     background-color: transparent !important;
 }
 .navbar-default .glyphicon{
-    top: 3px;
+    
+    font-size: 10px;
 }
 .dropdown > a:focus{
     color: #d8dfe2 !important; 

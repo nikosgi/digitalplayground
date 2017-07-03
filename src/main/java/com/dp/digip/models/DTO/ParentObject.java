@@ -84,10 +84,9 @@ public class ParentObject implements Serializable{
     }
 
     public void setBirthDate(Date birthdate){
-	this.birthDate = birthdate;
+    this.birthDate = birthdate;
     
     }
-
     public void setCountry(String country1){
         this.country = country1;
     }

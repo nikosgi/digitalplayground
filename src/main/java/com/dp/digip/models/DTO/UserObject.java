@@ -31,17 +31,17 @@ public class UserObject implements Serializable{
     
     private String role;
 
-
+    private byte[] image;
 
 
     public UserObject() { }
 
     
-    public UserObject(String email,String username,String password,String role) {
+    public UserObject(String email,String username,String password,String role,byte[] image) {
         this.email = email;
         this.username = username; 
         this.password = password;
-
+        this.image = image;
         this.role = role;
     }
 
@@ -77,6 +77,14 @@ public class UserObject implements Serializable{
 
     public void setRole(String role1){
 	this.role = role1;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
 }

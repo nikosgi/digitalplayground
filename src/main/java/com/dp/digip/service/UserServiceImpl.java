@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService{
     public void saveUser(UserObject newUser,ParentObject newParent) { 
 
 	  Parent parent = new Parent(newParent);
-	  User user = new User(newUser.getEmail(),newUser.getUsername(),bCryptPasswordEncoder.encode(newUser.getPassword()) ,new Role(newUser.getRole()), parent); 
+	  User user = new User(newUser.getEmail(),newUser.getUsername(),bCryptPasswordEncoder.encode(newUser.getPassword()) ,new Role(newUser.getRole()), parent, newUser.getImage()); 
       
 	  out.println(user.getEmail());
       out.println("BLABLABLA");

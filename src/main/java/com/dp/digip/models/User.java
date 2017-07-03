@@ -45,6 +45,10 @@ public class User implements Serializable{
     @Field
     @Column( unique = true,nullable = true)
     private String email=null;
+
+    @Lob
+    @Column(length=10000000 , nullable = true)  
+    private byte[] image;
     
     @OneToOne(cascade=CascadeType.ALL, mappedBy="user") 
     private Role role;
@@ -70,17 +74,17 @@ public class User implements Serializable{
     }
 
 
-    public User(String email,String username,String password,Role role) {
+    public User(String email,String username,String password,Role role,byte[] image) {
         this.email = email;
         this.username = username; 
         this.password = password;
-
         this.role = role;
         this.role.setUser(this);
+        this.image = image;
     }
 
-    public User(String email,String username,String password,Role role,Provider provider) {
-        this.email = email;
+    public User(String email,String username, String password,Role role,Provider provider,byte[] image) {
+    this.email = email;
 	this.username = username;
 	this.password = password;
 	
@@ -89,9 +93,10 @@ public class User implements Serializable{
 	
 	this.provider = provider;
 	this.provider.setUser(this);
+    this.image =image;
     }
 
-    public User(String email,String username,String password,Role role,Parent parent) {
+    public User(String email,String username,String password,Role role,Parent parent,byte[] image) {
         this.email = email;
         this.username = username;
         this.password = password;
@@ -101,6 +106,8 @@ public class User implements Serializable{
 
         this.parent = parent;
         this.parent.setUser(this);
+
+        this.image = image;
     }
 
 
@@ -109,7 +116,6 @@ public class User implements Serializable{
     public Long getId(){
 	return this.id;	
     }
-
 
     public String getPassword(){ return this.password;}
     public void setPassword(String pass){ this.password = pass;}
@@ -172,6 +178,14 @@ public class User implements Serializable{
 
     public void setTransactions( Set<Transaction> transaction){
 	this.transactions = transaction;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
 

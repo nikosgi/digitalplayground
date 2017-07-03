@@ -183,7 +183,9 @@ public class Parent implements Serializable{
     public Blob getAvatar( ){
         return this.avatar;
     }
-
+    public Date getBirthDate(){
+        return this.birthDate;
+    }
     public Integer getMoney( ){
         return this.money;
     }

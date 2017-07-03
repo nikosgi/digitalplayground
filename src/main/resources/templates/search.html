@@ -121,44 +121,16 @@
             </div>
             <div class="col-xs-9">
                 <h2 class="entry-title"><span>Results</span> </h2><hr/>
-                <div th:each="event : ${events}">
-                        <div class="cuadro_intro_hover " style="background-color:#cccccc;">
-                            <p style="text-align:center; margin-top:20px;">
-                                <img th:src="@{${imgUrl+event.id}}"/>
-                            </p>
-                            <div class="caption">
-                                <div class="blur"></div>
-                                <div class="caption-text">
-                                    <h3 th:text="${event.name}" style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">THIS IS</h3>
-                                    <p th:text="${event.description}">Default Text</p>
-                                    <a class="btn btn-default" th:href="${'http://localhost:8080/event/' + event.id}"><span class="glyphicon glyphicon-plus"> INFO</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <a class="list-quotes" id="all" href="/">
+                <a th:each="event : ${events}" class="list-quotes" id="all" th:href="${'http://localhost:8080/event/' + event.id}">
                          <!-- Recommended size 360X360 -->
-                        <img class='img-responsive' alt="img" src="http://images.shape.mdpcdn.com/sites/shape.com/files/styles/story_detail/public/story/dating-a-younger-man-700_0.jpg?itok=VdKivCyT"/>
+                        <img class='img-responsive' alt="img" th:src="@{${imgUrl+event.id}}"/>
                         <div class="quotes">
                             <h1>Lorem ipsum dolor</h1>
-                            <span class="year">Date</span>    
-                            <span class="cat-name">Name</span>
-                            <p>read more</p>
+                            <span class="year" th:text="${event.date}">Date</span>    
+                            <span class="cat-name" th:text="${event.name}">Name</span>
+                            <p th:text="${event.description}">read more</p>
                             </div>
                     </a>
-                    <a class="list-quotes" id="past" href="/">
-                        <!-- Recommended size 360X360 -->
-                         <img class='img-responsive cover' alt="img" src="http://images.shape.mdpcdn.com/sites/shape.com/files/styles/story_detail/public/story/dating-a-younger-man-700_0.jpg?itok=VdKivCyT"/>
-                         <div class="quotes">
-                             <h1>Lasdf</h1>
-                             <span class="year">Date</span>
-                             <span class="cat-name">Name</span>
-                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. <span>...Read Mors</span>
-                            </p>
-                        </div>
-                    </a>
-                    
             </div>
         </div>
         <div class="row" id="users" style="display:none;">

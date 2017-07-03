@@ -51,7 +51,7 @@ public class UserController {
             return "user/add";
         }
             
-    User myUser = new User(newUser.getEmail(),newUser.getUsername(),newUser.getPassword(),new Role(newUser.getRole_temp()) );
+    User myUser = new User(newUser.getEmail(),newUser.getUsername(),newUser.getPassword(),new Role(newUser.getRole_temp()),newUser.getImage() );
     //userDao.save(myUser); 
             
 

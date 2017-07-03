@@ -48,12 +48,12 @@ public class SearchController {
 
 		if ( users.size() == 0 )
 			out.println("no users found ");		
-
+		model.addAttribute("imgUrl", "http://localhost:8080/event/image/");
 		model.addAttribute("users",users);	 
 		model.addAttribute("events",events);
 		model.addAttribute("srch-term",q);
 		
-		return "/index";
+		return "search";
 
 	}
 

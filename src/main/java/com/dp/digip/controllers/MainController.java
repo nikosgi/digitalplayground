@@ -22,7 +22,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
+import java.util.Arrays;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import java.io.File;
+import java.io.FileInputStream;
 import org.springframework.web.servlet.ModelAndView; 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -133,7 +142,7 @@ public class MainController {
     @RequestMapping(value = "/myprofile", method = RequestMethod.GET)
     public String myprofile(Model model){
 	
-	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	Date currentDate = new Date();	
 	out.println(dateFormat.format(currentDate));
 
@@ -141,26 +150,27 @@ public class MainController {
 	ArrayList<Event> comingEvents = new ArrayList<Event>();
 
 	model.addAttribute("events",eventDao.findAll());
-        model.addAttribute("imgUrl", "http://localhost:8080/event/image/");
-
-        Authentication auth = authenticationFacade.getAuthentication();
-        String username = auth.getName();
-
+    model.addAttribute("imgUrl", "http://localhost:8080/event/image/");
+    model.addAttribute("profileUrl", "http://localhost:8080/myprofile/image/");
+    Authentication auth = authenticationFacade.getAuthentication();
+    String username = auth.getName();
 	User user = userDao.findByUsername(username);
 	Parent parent = generalService.parentFromUsername(username);
 	
 	model.addAttribute("user",user );
 	model.addAttribute("parent",parent);
 
+	model.addAttribute("birthDate", dateFormat.format(parent.getBirthDate()));
+
 	Set<Transaction> transactions = user.getTransactions() ;
 
-	if ( transactions.size() != 0 ){
+	if ( transactions.size() >= 0 ){
 		Event event = null;
 		Date eventDate = null;
-		for (Transaction trans : transactions){	
-
+		for (Transaction trans : transactions){
 			event =  trans.getEvent();
-			eventDate = event.getDate();
+			eventDate = event.getDate();	
+			out.println("lalala\n\n\n\n"+eventDate);
 		
 			if ( currentDate.after(eventDate) )
 				pastEvents.add(event);
@@ -172,12 +182,12 @@ public class MainController {
         model.addAttribute("pastEvents",pastEvents);
         model.addAttribute("comingEvents",comingEvents);
 		
-	return "/index";
+	return "myprofile";
     }
 
 
-    @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public String profile(Model model,@RequestParam("username") String username){//,HttpServletRequest request) {
+    @RequestMapping(value = "/{username}", method = RequestMethod.GET)
+    public String profile(Model model,@PathVariable("username") String username){//,HttpServletRequest request) {
         model.addAttribute("events",eventDao.findAll());
         model.addAttribute("imgUrl", "http://localhost:8080/event/image/");
 
@@ -219,14 +229,16 @@ public class MainController {
         return "profile";
     }
 
+    @RequestMapping(value = "/myprofile/image/{image_id}",method = RequestMethod.GET, produces = MediaType.IMAGE_PNG_VALUE)
+    @ResponseBody
+    public ResponseEntity<byte[]> getImage(@PathVariable("image_id") Long imageId) throws IOException {
 
-    @RequestMapping("/search")
-    public String s(Model model) {
-        return "search";
+        byte[] image= userDao.findOne(imageId).getImage();
+        System.out.println(Arrays.toString(image));
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+        return new ResponseEntity<byte[]> (image, headers, HttpStatus.CREATED);
     }
-
-    @RequestMapping
-
 
 
     @Controller
@@ -247,12 +259,13 @@ public class MainController {
     	}
 
     	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-    	public String registration(@ModelAttribute ParentObject parent,@RequestParam("username") String username,@RequestParam("email") String email,
-		@RequestParam("password") String password,@RequestParam("dd") String birthDay,@RequestParam("mm")String birthMonth,@RequestParam("yyyy")String birthYear, Model model) {
+    	public String registration(@ModelAttribute ParentObject parent, @RequestParam("username") String username, @RequestParam("email") String email,
+		@RequestParam("password") String password,@RequestParam("dd") String birthDay,@RequestParam("mm")String birthMonth,@RequestParam("yyyy")String birthYear,
+		@RequestParam("file") MultipartFile file, Model model) throws IOException {
 
 		String role = "PARENT";
 		String birthDateString = birthMonth+"/"+birthDay+"/"+birthYear;
-
+		byte[] image = file.getBytes();
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
 		Date birthDate=null;
 		try {
@@ -264,7 +277,7 @@ public class MainController {
 		parent.setBirthDate(birthDate);
 		parent.setMoney(0);
 		
-		UserObject newUser = new UserObject(email,username,password,role); 
+		UserObject newUser = new UserObject(email,username,password,role,image); 
 
 	        userService.saveUser(newUser,parent);	
 

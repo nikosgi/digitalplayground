@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/navbar.css}"/>
+    <link rel="stylesheet" th:href="@{/css/profile.css}"/>
+    <!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>-->
+    <link href="https://fonts.googleapis.com/css?family=Finger+Paint" rel="stylesheet"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <title>Digital Playground</title>
+
+</head>
+
+<body class="main">
+<div class="background">
+    <nav th:replace="navbar :: navigation"></nav>
+
+
+    <div class="container">
+
+        <div class="row profile">
+            <div class="col-xs-4 left-side no-padding">
+                <div class="fb-profile">
+                    <div class="profile-name">
+                        <p class="name" th:text="${parent.name + ' ' + parent.surname}">Name</p>
+                    </div>
+                    <img class="img-responsive img-circle" th:src="@{${profileUrl+user.id}}" alt="Profile image example"/>
+                    <div class="row follow-message">
+                        <div class="col-xs-6">
+                            <div class="follow" sec:authorize="isAnonymous()">
+                                <i class="glyphicon glyphicon-user"></i>
+                                <a href="" class="msg">Follow</a>
+                            </div>
+                            <div class="follow" sec:authorize="isAuthenticated()">
+                                <i class="glyphicon glyphicon-user"></i>
+                                <a href="" class="msg">Followers</a>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="message" sec:authorize="isAnonymous()">
+                                <i class="glyphicon glyphicon-envelope"></i>
+                                <a href="" class="msg">Message</a>
+                            </div>
+                            <div class="message" sec:authorize="isAuthenticated()">
+                                <i class="glyphicon glyphicon-envelope"></i>
+                                <a href="" class="msg">Messages</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-8 right-side">
+                <div class="outsite">
+                <div class="profile-userdetails">
+                    <ul class="user">
+                        <li class="active">
+                            <i class="glyphicon glyphicon-map-marker"></i>
+                            <span th:text="${parent.region+', '+ parent.country}"></span>
+                        </li><br/>
+                        <li>
+                            <i class="glyphicon glyphicon-gift"></i>
+                            <span th:text="${birthDate}"></span>
+                        </li><br/>
+                        <li>
+                            <i class="glyphicon glyphicon-phone"></i>
+                            <span th:text="${parent.getPhone()}"></span>
+                        </li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+        </div><br/>
+
+        <div class="row">
+            <div class="col-xs-8">
+
+                <div class="my-events">
+                    <div class="event-header">
+                        <h4>My Events</h4>
+                    </div>
+                    <div class="event-buttons btn-group btn-group-justified" role="group">
+                        <div class="btn-group" role="group"><button type="button" id="all-btn" class="btn btn-primary">All</button></div>
+                        <div class="btn-group" role="group"><button type="button" id="coming-btn" class="btn btn-success">Upcoming</button></div>
+                            <div class="btn-group" role="group"><button type="button" id="past-btn" class="btn btn-danger">Past</button></div>
+                    </div>
+                    
+                    <a th:each="event : ${comingEvents}" class="list-quotes coming" id="coming" th:href="${'http://localhost:8080/event/' + event.id}">
+                        <img class='img-responsive' alt="img" th:src="${event.image != null} ? 'imgUrl+event.id': '/img/default-event.png'"/>
+                        <div class="quotes">
+                            <h1>Lorem ipsum dolor</h1>
+                            <span class="year" th:text="${event.date}">Date</span>    
+                            <span class="cat-name" th:text="${event.name}">Name</span>
+                            <p th:text="${event.description}">read more</p>
+                            </div>
+                    </a>
+                    <a th:each="event : ${pastEvents}" class="list-quotes past" id="past" th:href="${'http://localhost:8080/event/' + event.id}">
+                        <img class='img-responsive' alt="img" th:src="${event.image != null} ? 'imgUrl+event.id': '/img/default-event.png'"/>
+                        <div class="quotes">
+                            <h1>Lorem ipsum dolor</h1>
+                            <span class="year" th:text="${event.date}">Date</span>    
+                            <span class="cat-name" th:text="${event.name}">Name</span>
+                            <p th:text="${event.description}">read more</p>
+                        </div>
+                    </a>
+                </div>
+                
+            </div>
+            <div class="col-xs-4">
+                <div class="reminders">
+                    <div class="reminders-header">
+                        <h4>Reminders</h4>
+                    </div>
+                    <div class=""></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script th:src="@{/js/my-events.js}" />
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+</body>
+
+
+</html>
