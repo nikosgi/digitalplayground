@@ -7,11 +7,14 @@ import com.dp.digip.models.Event;
 import com.dp.digip.models.DAO.TransactionDAO;
 import com.dp.digip.models.DAO.EventDAO;
 import com.dp.digip.models.DAO.UserDAO;
+import com.dp.digip.models.DAO.CommentDAO;
 import com.dp.digip.models.User;
+import com.dp.digip.models.Comment;
+import com.dp.digip.models.Parent;
 import com.dp.digip.models.Transaction;
 import com.dp.digip.components.AuthenticationFacade;
 import org.springframework.security.core.Authentication;
-
+import com.dp.digip.service.GeneralService;
 
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -28,10 +31,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
-
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,6 +45,12 @@ import java.io.IOException;
 import java.sql.Blob;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+
 
 @Controller
 @RequestMapping("event")
@@ -56,6 +68,11 @@ public class EventController {
     @Autowired
     private TransactionDAO transactionDao;
 
+    @Autowired
+    private CommentDAO commentDao;
+
+    @Autowired
+    private GeneralService generalService;
 
     @RequestMapping(value ="")
     public String index(Model model){
@@ -91,10 +108,41 @@ public class EventController {
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     public String displayEvent(@PathVariable("id") Long event_id, Model model){
-        model.addAttribute("event",eventDao.findOne(event_id));
+        Event event = eventDao.findOne(event_id);
+	
+	//HashSet<Comment> comments = new HashSet<Comment>( event.getComments() );
+	List<Comment> comments = new ArrayList<Comment>(event.getComments() );
+	model.addAttribute("event", event);
+	model.addAttribute("comments", comments );
+
+
+
+	//model.addAttribute("event",eventDao.findOne(event_id));
+	
         return "/event";
 
     }
+
+    @MessageMapping("/hello")
+    @SendTo("/topic/greetings")
+    public Comment sendComment(String message,Long event_id,int rating) throws Exception {
+        Thread.sleep(1000); // simulated delay
+
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date currentDate = new Date();
+        
+        Authentication auth = authenticationFacade.getAuthentication();
+        String username = auth.getName();
+
+	User commenter = userDao.findByUsername(username);
+	Event event = eventDao.findOne(event_id);	
+	
+	Comment comment = new Comment(message , rating , currentDate, commenter,event);
+	commentDao.save(comment);
+
+	return comment; 
+    }
+ 
 
     @RequestMapping(value = "/{id}",method = RequestMethod.POST)
     public String ckeckoutEvent(@PathVariable("id") Long event_id , @RequestParam("qty") int tickets, Model model){
@@ -102,32 +150,45 @@ public class EventController {
 	//int tickets = 2;
 
 	Event event = eventDao.findOne(event_id);
-	
+
 	int tickets_initial = event.getTicketsInitial();
 	int tickets_remaining = event.getTicketsRemaining();
-			
+	int cost = event.getCost();
+	int totalCost = tickets * cost;
+		
 	if ( tickets_remaining - tickets < 0 ){
 		System.out.println("\n dont have so much tickets");	
 		return "/errorError";
 	}
 
-	System.out.println("Event requested is \n\n\n");	
+        Authentication auth = authenticationFacade.getAuthentication();
+        String username = auth.getName();
+
+        Parent parent = generalService.parentFromUsername(username);
+        int user_money = parent.getMoney();
+
+	if ( user_money < totalCost ){
+		System.out.println("\n\nsorry not enough money");
+		return "/errorError";
+	} 	
 
 	event.setTicketsRemaining( tickets_remaining - tickets);
 	eventDao.save(event);
 
-        Authentication auth = authenticationFacade.getAuthentication();
-        String username = auth.getName();
-
         User userBuyer = userDao.findByUsername(username);	
+		
+	parent.setMoney( user_money-totalCost);	
+	userBuyer.setParent(parent);
+	userDao.save(userBuyer);
 
 	Transaction trans = new Transaction(tickets, userBuyer, event);	
 	
 	transactionDao.save(trans);		
 
-	return "/index";		
+	return "/event";		
 
     }
+
     
     @RequestMapping(value = "/more",method = RequestMethod.GET)
     public String more(Model model){

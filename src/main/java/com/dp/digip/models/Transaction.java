@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 import java.io.Serializable;
+import java.util.Date;
+
 
 @Entity
 public class Transaction{

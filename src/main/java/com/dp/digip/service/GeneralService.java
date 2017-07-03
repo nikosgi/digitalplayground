@@ -19,17 +19,9 @@ public class GeneralService{
 
 	public Parent parentFromUsername(String username){
 
-		out.println("\n\n\n inside parentFromUsername");
-
 		User user = userDao.findByUsername(username);
 
-		Parent parent = user.getParent();
-
-		if ( parent == null)
-			out.println("wtf");			
-	
-		
-	
+		Parent parent = user.getParent();	
 		return parent;
 	}
 

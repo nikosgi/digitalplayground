@@ -65,7 +65,9 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private Set<Transaction> transactions ;
 
-    
+    @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL)
+    private Set<Comment> comments;   
+ 
 
     public User() { }
 
@@ -178,6 +180,14 @@ public class User implements Serializable{
 
     public void setTransactions( Set<Transaction> transaction){
 	this.transactions = transaction;
+    }
+
+    public Set<Comment> getComments(){
+    	return this.comments;
+    }
+    
+    public void setComments(Set<Comment> comments){
+	this.comments = comments;
     }
 
     public byte[] getImage() {

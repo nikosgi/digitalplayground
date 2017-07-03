@@ -106,6 +106,8 @@ public class Event implements Serializable{
 	@OneToMany(mappedBy = "event",cascade = CascadeType.ALL)
 	private Set<Transaction> transactions;
 
+	@OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+	private Set<Comment> comments;
 
 	public Event(){}
 
@@ -146,7 +148,13 @@ public class Event implements Serializable{
 		this.transactions = transaction;
 	}
 
+	public Set<Comment> getComments(){
+		return this.comments;
+	}
 
+	public void setComments( Set<Comment> comments){
+		this.comments = comments;
+	}
 /*	public String getCountry() {
 		return country;
 	}
