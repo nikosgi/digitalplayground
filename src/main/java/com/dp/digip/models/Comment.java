@@ -24,7 +24,9 @@ public class Comment {
         @Column( unique = false, nullable = false)
         private Date date;
 	
-	
+        @Column ( unique = false, nullable = false)
+	private int eid;
+
         @JoinColumn(name = "user_id",nullable = false,unique = false, referencedColumnName = "id")
         @ManyToOne
         private User user;
@@ -42,7 +44,10 @@ public class Comment {
 		this.user = user;
 		this.event = event;
 	}		
-
+        public Comment( String body, int eid){
+                this.body = body;
+                this.eid= eid;
+        }
 	public String getBody(){
 		return this.body;
 	}

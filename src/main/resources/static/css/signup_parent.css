@@ -29,6 +29,9 @@ input.upload {
     opacity: 1;
     filter: alpha(opacity=1);
 }
+.input-group{
+    width:30px;
+}
 
 .form-inline .form-group{
     margin-left: 0;
@@ -36,8 +39,4 @@ input.upload {
 }
 .control-label {
     color:#333333;
-}
-input[type=radio] {
-   position:fixed;
-   left:-9999px;
 }

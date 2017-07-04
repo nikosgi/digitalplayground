@@ -10,7 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/signup_parent.css}"/>
 
     <link rel="stylesheet" th:href="@{/css/bootstrap-slider.min.css}"/>
-        <link rel="stylesheet" th:href="@{/css/search.css}"/>
+    <link rel="stylesheet" th:href="@{/css/search.css}"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Finger+Paint" rel="stylesheet"/>
@@ -20,11 +20,37 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-    <script th:src="@{/js/datepicker.js}" />
     <script th:src="@{/js/bootstrap-slider.min.js}"/>
+    <script th:src="@{/js/datepicker.js}" />
     <script th:src="@{/js/slide-event-user.js}"/>
-   
+    <script th:inline="javascript" th:each="event : ${events}">
+    /*<![CDATA[*/
+        
+
+        function filter() {
+            var event_id = [[${event.id}]];
+            var event_date = [[${event.date}]];
+            console.log(event_date);
+
+            var event_price = [[${event.cost}]];
+            var counter =0;
+
+            var dateF = document.getElementById("date-from").value;
+            var dateT = document.getElementById("date-to").value;
+            var priceL = document.getElementById("low-val").textContent;
+            var priceH = document.getElementById("high-val").textContent;
+            if (event_price > priceL && event_price < priceH && dateF > event_date && dateL < event_date){
+                console.log(event_price);   
+
+            }
+
+            console.log(dateF);console.log(dateT);console.log(priceL);console.log(priceH);
+        };
+
+    /*]]>*/
+    </script>
     <title>Digital Playground</title>
+
 
 </head>
 
@@ -72,7 +98,7 @@
                         </div><br/>
                         <div class="form-group">
                             <div class="row">
-                            <label class="control-label1 col-xs-6" id="low-val">0</label><label class="control-label1 col-xs-6" id="high-val">100</label></div>
+                            <label class="control-label1 col-xs-6" id="low-val" value="0">0</label><label class="control-label1 col-xs-6" id="high-val" value="100">100</label></div>
                             <div class="row">
                             <div class="col-xs-10 col-xs-offset-2">
                                 <div class="input-group">
@@ -92,38 +118,57 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="header">
+                        <!-- <div class="header">
                             <h4>Availability</h4>
                         </div><br/>
                         <div class="form-group">
-                            <label class="control-label col-sm-3 btn btn-success active ">Available</label>
-                            <div class="col-sm-12">
+                            
+                            <div class="row">
+                                <div class="col-xs-1 col-xs-offset-5">
+                                    <label class="control-label btn btn-success active "></label>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="input-group radio-button">
+                                        <input type="radio" class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-1 col-xs-offset-5">
+                                    <label class="control-label btn btn-success active ">df</label>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="input-group radio-button">
+                                        <input type="radio" class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <label class="control-label col-sm-3 btn btn-warning">Limited</label>
                                 <div class="input-group">
                                     <input type="radio" class="form-control"/>
                                 </div>
                             </div>
-                             <label class="control-label col-sm-3 btn btn-warning">Limited</label>
-                            <div class="col-sm-12">
-                                <div class="input-group">
+                            <div class="row">
+                                <label class="control-label col-sm-3 btn btn-danger">Unavailable</label>
+                                <div class="input-group col-sm-9">
                                     <input type="radio" class="form-control"/>
                                 </div>
-                            </div>
-                             <label class="control-label col-sm-3 btn btn-danger">Unavailable</label>
-                            <div class="col-sm-12">
-                                <div class="input-group">
-                                    <input type="radio" class="form-control"/>
-                                </div>
-                            </div>
-                        </div>
+                            </div> 
+                            
+                        </div>-->
                     </form>
+                    <div class="filter-button">
+                        <button type="submit" class="btn btn-primary filtering" onclick="filter()">FIlter</button>
+                    </div><br/><br/>
                 </section>
                 </div>
             </div>
             <div class="col-xs-9">
                 <h2 class="entry-title"><span>Results</span> </h2><hr/>
-                <a th:each="event : ${events}" class="list-quotes" id="all" th:href="${'http://localhost:8080/event/' + event.id}">
-                         <!-- Recommended size 360X360 -->
-                        <img class='img-responsive' alt="img" th:src="@{${imgUrl+event.id}}"/>
+                <a th:each="event : ${events}" th:id="${event.id}" class="list-quotes" th:href="${'http://localhost:8080/event/' + event.id}">
+                        <img class='img-responsive' alt="img" th:src="${event.image != null} ? 'imgUrl+event.id': '/img/default-event.png'"/>
                         <div class="quotes">
                             <h1>Lorem ipsum dolor</h1>
                             <span class="year" th:text="${event.date}">Date</span>    
@@ -190,8 +235,8 @@
                             <h4>Availability</h4>
                         </div><br/>
                         <div class="form-group">
-                            <label class="control-label col-sm-3 btn btn-success active ">Available</label>
-                            <div class="col-sm-12">
+                            <div class="col-sm-8">
+                                <label class="control-label col-sm-3 btn btn-success active ">Available</label>
                                 <div class="input-group">
                                     <input type="radio" class="form-control"/>
                                 </div>

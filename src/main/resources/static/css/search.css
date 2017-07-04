@@ -35,7 +35,7 @@
     position: relative;
     display: block;
     height: 200px;
-    border: solid #d8dfe2;
+    text-align: center;
     box-shadow:none;
 }
 .list-quotes img,
@@ -44,10 +44,12 @@
     transition: transform 0.35s;
 }
 
-.list-quotes img {
+.list-quotes .img-responsive{
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    height:100%;
     width: 100%;
+    vertical-align: middle;
 }
 .list-quotes h1{
     background: rgba(0, 173, 181, 0.8);
@@ -124,7 +126,7 @@
 }
 .list-quotes:hover{
 
-    box-shadow: 0 0 5px 2px rgba(216, 223, 226, 1);
+
     border: none;
 }
 .list-quotes:hover p {
@@ -139,14 +141,15 @@
 }
 
 input[type=radio] {
-   position:fixed;
-   left:-9999px;
+    color: #222931;
+    width :10px
+    height: 10px;
 }
 
-.form-control{
-	width: 100%;
+.radio-button .form-control{
+    height:20px;
+    width:20px;
 }
-
 .slide-btn{
 	width:100%;
 	margin:0; !important
@@ -158,4 +161,13 @@ input[type=radio] {
 
 #user-event-sllide{
 	width:100%;
+}
+
+.filter-button{
+    margin: 5px;
+    padding: 5px;
+    border-top: 1px solid black;
+}
+.filtering{
+    float:right;
 }

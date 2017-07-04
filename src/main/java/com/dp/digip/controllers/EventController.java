@@ -11,6 +11,8 @@ import com.dp.digip.models.DAO.CommentDAO;
 import com.dp.digip.models.User;
 import com.dp.digip.models.Comment;
 import com.dp.digip.models.Parent;
+import com.dp.digip.models.MessageDTO;
+import com.dp.digip.models.Greeting;
 import com.dp.digip.models.Transaction;
 import com.dp.digip.components.AuthenticationFacade;
 import org.springframework.security.core.Authentication;
@@ -114,6 +116,8 @@ public class EventController {
 	List<Comment> comments = new ArrayList<Comment>(event.getComments() );
 	model.addAttribute("event", event);
 	model.addAttribute("comments", comments );
+    model.addAttribute("event_lat", 37.4429);
+    model.addAttribute("event_lng", -122.1419);
 
 
 
@@ -125,22 +129,24 @@ public class EventController {
 
     @MessageMapping("/hello")
     @SendTo("/topic/greetings")
-    public Comment sendComment(String message,Long event_id,int rating) throws Exception {
-        Thread.sleep(1000); // simulated delay
+    public MessageDTO sendComment(Greeting message) throws Exception {
+        Thread.sleep(500);
 
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date currentDate = new Date();
         
-        Authentication auth = authenticationFacade.getAuthentication();
-        String username = auth.getName();
+     //    Authentication auth = authenticationFacade.getAuthentication();
+     //    String username = auth.getName();
 
-	User commenter = userDao.findByUsername(username);
-	Event event = eventDao.findOne(event_id);	
-	
-	Comment comment = new Comment(message , rating , currentDate, commenter,event);
-	commentDao.save(comment);
+	    // User commenter = userDao.findByUsername(username);
+	    // Event event = eventDao.findOne(message.getEventId());	
 
-	return comment; 
+	   System.out.println("I AM HERE");
+       System.out.println(message.getName() + " " );
+	   // Comment comment = new Comment(message.getName(),5,currentDate,commenter,event);
+	   // commentDao.save(comment);
+
+	return new MessageDTO(message.getName()); 
     }
  
 
