@@ -220,3 +220,8 @@
 .text .date{
     float:right;
 }
+
+.error{
+    color: #FF0000;
+    background-color: #d8dfe2;
+}

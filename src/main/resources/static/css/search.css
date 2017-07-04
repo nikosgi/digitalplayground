@@ -171,3 +171,18 @@ input[type=radio] {
 .filtering{
     float:right;
 }
+
+.prof-img{
+    display:block;
+    height:90px;
+    width:150px;
+    max-height: 100%;
+    max-width: 100%;
+    border-radius:5%    ;
+}
+.well .glyphicon { margin-right:5px;}
+.well{ background-color: #d8dfe2; }
+.results{ background-color: #222831; }
+.entry-title{color: #d8dfe2;}
+.section-box h2 a { font-size:15px; }
+.section-box hr {margin-top: 0;margin-bottom: 5px;border: 0;border-top: 1px solid rgb(199, 199, 199);}

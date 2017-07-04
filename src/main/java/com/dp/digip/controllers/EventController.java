@@ -114,8 +114,8 @@ public class EventController {
 	
 	//HashSet<Comment> comments = new HashSet<Comment>( event.getComments() );
 	List<Comment> comments = new ArrayList<Comment>(event.getComments() );
-	model.addAttribute("event", event);
-	model.addAttribute("comments", comments );
+    model.addAttribute("event", event);
+    model.addAttribute("comments", comments );
     model.addAttribute("event_lat", 37.4429);
     model.addAttribute("event_lng", -122.1419);
 
@@ -159,10 +159,14 @@ public class EventController {
 	int tickets_remaining = event.getTicketsRemaining();
 	int cost = event.getCost();
 	int totalCost = tickets * cost;
-		
+	
 	if ( tickets_remaining - tickets < 0 ){
 		System.out.println("\n dont have so much tickets");	
-		return "/errorError";
+         List<Comment> comments = new ArrayList<Comment>(event.getComments());
+        model.addAttribute("comments", comments );
+        model.addAttribute("event",event);  
+        model.addAttribute("error_string", "Sorry, there aren't any tickets left for this event");
+        return "/event";
 	}
 
         Authentication auth = authenticationFacade.getAuthentication();
@@ -173,7 +177,11 @@ public class EventController {
 
 	if ( user_money < totalCost ){
 		System.out.println("\n\nsorry not enough money");
-		return "/errorError";
+        List<Comment> comments = new ArrayList<Comment>(event.getComments());
+        model.addAttribute("comments", comments );
+		model.addAttribute("error_string", "Sorry, you don't have enough money for this ticket(s)!");
+        model.addAttribute("event",event);  
+        return "/event";
 	} 	
 
 	event.setTicketsRemaining( tickets_remaining - tickets);
