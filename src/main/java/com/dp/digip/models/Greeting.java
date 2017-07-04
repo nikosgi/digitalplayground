@@ -4,22 +4,33 @@ public class Greeting {
 
     private String name;
     private Long eid;
-    private int stars;
+    private String usern;
     public Greeting() {
     }
 
-    public Greeting(String name, Long eid, int stars) {
+    public Greeting(String name, Long eid, String usern) {
         this.name = name;
         this.eid = eid;
-        this.stars= stars;
+        this.usern= usern;
     }
 
     public String getName() {
         return this.name;
     }
-    public Long getEventId(){
+    public Long getEid(){
         return this.eid;
     }
+    public void setEid(Long eid){
+        this.eid = eid;
+    }
+
+    public String getUsern(){
+        return this.usern;
+    }
+    public void setUsern(String usern){
+        this.usern = usern;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

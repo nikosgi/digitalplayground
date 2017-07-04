@@ -14,7 +14,7 @@ function setConnected(connected) {
 
 function sendName() {
 
-    stompClient.send("/app/hello", {}, JSON.stringify({'name': $("#name").val(), 'eid' : $("#event_id").val()}));
+    stompClient.send("/app/hello", {}, JSON.stringify({'name': $("#name").val(), 'eid' : $("#event_id").val(), 'usern' : $("#user_id").val()}));
 
 }
 

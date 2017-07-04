@@ -25,27 +25,27 @@
     <script th:src="@{/js/slide-event-user.js}"/>
     <script th:inline="javascript" th:each="event : ${events}">
     /*<![CDATA[*/
-        
-
-        function filter() {
+        $(document).ready(function () {
+        $("#filter").click(function() {
             var event_id = [[${event.id}]];
+            var finalId = '#event_id'+event_id; 
             var event_date = [[${event.date}]];
-            console.log(event_date);
-
             var event_price = [[${event.cost}]];
-            var counter =0;
 
             var dateF = document.getElementById("date-from").value;
             var dateT = document.getElementById("date-to").value;
-            var priceL = document.getElementById("low-val").textContent;
-            var priceH = document.getElementById("high-val").textContent;
-            if (event_price > priceL && event_price < priceH && dateF > event_date && dateL < event_date){
-                console.log(event_price);   
-
+            var priceL = $("#low-val").text();
+            var priceH = $("#high-val").text();
+            console.log(priceL);console.log(priceH);
+            if (event_price >= priceL && event_price <= priceH ){
+                console.log(finalId);
+                var eid= $(finalId).show();
+            }else{
+                var eid= $(finalId).hide();
+                console.log("I will hide you\n\n");
             }
-
-            console.log(dateF);console.log(dateT);console.log(priceL);console.log(priceH);
-        };
+        });
+        });   
 
     /*]]>*/
     </script>
@@ -160,14 +160,14 @@
                         </div>-->
                     </form>
                     <div class="filter-button">
-                        <button type="submit" class="btn btn-primary filtering" onclick="filter()">FIlter</button>
+                        <button class="btn btn-primary filtering" id="filter">FIlter</button>
                     </div><br/><br/>
                 </section>
                 </div>
             </div>
             <div class="col-xs-9">
                 <h2 class="entry-title"><span>Results</span> </h2><hr/>
-                <a th:each="event : ${events}" th:id="${event.id}" class="list-quotes" th:href="${'http://localhost:8080/event/' + event.id}">
+                <a th:each="event : ${events}" th:id="${'event_id' + event.id}" class="list-quotes" th:href="${'http://localhost:8080/event/' + event.id}">
                         <img class='img-responsive' alt="img" th:src="${event.image != null} ? 'imgUrl+event.id': '/img/default-event.png'"/>
                         <div class="quotes">
                             <h1>Lorem ipsum dolor</h1>

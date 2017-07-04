@@ -44,10 +44,6 @@ public class Comment {
 		this.user = user;
 		this.event = event;
 	}		
-        public Comment( String body, int eid){
-                this.body = body;
-                this.eid= eid;
-        }
 	public String getBody(){
 		return this.body;
 	}

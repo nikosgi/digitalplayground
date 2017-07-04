@@ -134,17 +134,15 @@ public class EventController {
 
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date currentDate = new Date();
-        
-     //    Authentication auth = authenticationFacade.getAuthentication();
-     //    String username = auth.getName();
+        System.out.println("I AM HERE");
+        System.out.println(message.getName() + " " + message.getEid());
+        System.out.println(message.getUsern());
+	    User commenter = userDao.findByUsername(message.getUsern());
+	    Event event = eventDao.findOne(message.getEid());	
 
-	    // User commenter = userDao.findByUsername(username);
-	    // Event event = eventDao.findOne(message.getEventId());	
-
-	   System.out.println("I AM HERE");
-       System.out.println(message.getName() + " " );
-	   // Comment comment = new Comment(message.getName(),5,currentDate,commenter,event);
-	   // commentDao.save(comment);
+	   
+	   Comment comment = new Comment(message.getName(),4,currentDate,commenter,event);
+	   commentDao.save(comment);
 
 	return new MessageDTO(message.getName()); 
     }
