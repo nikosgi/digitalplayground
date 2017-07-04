@@ -7,9 +7,11 @@ public class MessageDTO {
 
     public Date date;
     public String content;
+    public String username;
 
-    public MessageDTO(String message) {
+    public MessageDTO(String message, String username) {
             this.date = Calendar.getInstance().getTime();
             this.content = message;
+            this.username = username;
     }
 }

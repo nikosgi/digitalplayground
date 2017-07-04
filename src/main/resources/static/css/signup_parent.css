@@ -30,8 +30,7 @@ input.upload {
     filter: alpha(opacity=1);
 }
 .input-group{
-    width:30px;
-}
+    width:100%;
 
 .form-inline .form-group{
     margin-left: 0;

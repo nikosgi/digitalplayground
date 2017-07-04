@@ -144,7 +144,7 @@ public class EventController {
 	   Comment comment = new Comment(message.getName(),4,currentDate,commenter,event);
 	   commentDao.save(comment);
 
-	return new MessageDTO(message.getName()); 
+	return new MessageDTO(message.getName(),commenter.getUsername()); 
     }
  
 

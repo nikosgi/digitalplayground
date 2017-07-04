@@ -30,7 +30,7 @@ function showGreeting(message) {
                                 <div class='col-xs-10 text'>\
                                     <div class='row'>\
                                         <div class='col-xs-6'>\
-                                            <div class='name'>Nikos Ge</div>\
+                                            <div class='name'>" + message.username +"</div>\
                                         </div>\
                                         <div class='col-xs-6'>\
                                             <div class='date'>" + date + "</div>\
