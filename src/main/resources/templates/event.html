@@ -184,7 +184,8 @@
                     </form><br/>
                     <button id ="myBtn" class="ticket-button">Book Now</button>
                     <!-- The Modal -->
-                    <div style="color: #FF0000;background-color: white" th:if="${error_string != null}" th:text="${error_string}">asdfasdf</div>
+                    <div class="error" th:if="${error_string != null}" th:text="${error_string}">asdfasdf</div>
+                    <div class="success" th:unless="${error_string}" th:if="${success_string != null}" th:text="${success_string}">asdfasdf</div>
                     <div id="myModal" class="modal">
 
                         <!-- Modal content -->

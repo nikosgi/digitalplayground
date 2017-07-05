@@ -225,3 +225,7 @@
     color: #FF0000;
     background-color: #d8dfe2;
 }
+.success{
+    color: #00FF00;
+    opacity: 0.5;
+}

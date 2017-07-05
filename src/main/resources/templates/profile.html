@@ -71,15 +71,9 @@
 
                 <div class="my-events">
                     <div class="event-header">
-                        <h4>My Events</h4>
+                        <h4>Events</h4>
                     </div>
-                    <div class="event-buttons btn-group btn-group-justified" role="group">
-                        <div class="btn-group" role="group"><button type="button" id="all-btn" class="btn btn-primary">All</button></div>
-                        <div class="btn-group" role="group"><button type="button" id="coming-btn" class="btn btn-success">Upcoming</button></div>
-                            <div class="btn-group" role="group"><button type="button" id="past-btn" class="btn btn-danger">Past</button></div>
-                    </div>
-                    
-                    <a th:each="event : ${comingEvents}" class="list-quotes coming" id="coming" th:href="${'http://localhost:8080/event/' + event.id}">
+                    <a th:each="event : ${events}" class="list-quotes coming" id="all" th:href="${'http://localhost:8080/event/' + event.id}">
                         <img class='img-responsive' alt="img" th:src="${event.image != null} ? 'imgUrl+event.id': '/img/default-event.png'"/>
                         <div class="quotes">
                             <h1>Lorem ipsum dolor</h1>
@@ -88,15 +82,7 @@
                             <p th:text="${event.description}">read more</p>
                             </div>
                     </a>
-                    <a th:each="event : ${pastEvents}" class="list-quotes past" id="past" th:href="${'http://localhost:8080/event/' + event.id}">
-                        <img class='img-responsive' alt="img" th:src="${event.image != null} ? 'imgUrl+event.id': '/img/default-event.png'"/>
-                        <div class="quotes">
-                            <h1>Lorem ipsum dolor</h1>
-                            <span class="year" th:text="${event.date}">Date</span>    
-                            <span class="cat-name" th:text="${event.name}">Name</span>
-                            <p th:text="${event.description}">read more</p>
-                        </div>
-                    </a>
+
                 </div>
                 
             </div>

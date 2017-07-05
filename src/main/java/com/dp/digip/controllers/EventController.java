@@ -97,9 +97,9 @@ public class EventController {
     public String processAddUser(@RequestParam("name") String name, @RequestParam("file") MultipartFile file,    @RequestParam("desc") String description, RedirectAttributes redirectAttributes) throws IOException {
 
         Authentication auth = authenticationFacade.getAuthentication();
-	String username = auth.getName();
+	    String username = auth.getName();
 
-	User eventOwner = userDao.findByUsername(username);
+	    User eventOwner = userDao.findByUsername(username);
 
         byte[] image = file.getBytes();
         System.out.println(file.getSize());
@@ -159,11 +159,11 @@ public class EventController {
 	int tickets_remaining = event.getTicketsRemaining();
 	int cost = event.getCost();
 	int totalCost = tickets * cost;
-	
+    List<Comment> comments = new ArrayList<Comment>(event.getComments());
+    model.addAttribute("comments", comments );
+	model.addAttribute("event",event);  
 	if ( tickets_remaining - tickets < 0 ){
 		System.out.println("\n dont have so much tickets");	
-         List<Comment> comments = new ArrayList<Comment>(event.getComments());
-        model.addAttribute("comments", comments );
         model.addAttribute("event",event);  
         model.addAttribute("error_string", "Sorry, there aren't any tickets left for this event");
         return "/event";
@@ -177,10 +177,8 @@ public class EventController {
 
 	if ( user_money < totalCost ){
 		System.out.println("\n\nsorry not enough money");
-        List<Comment> comments = new ArrayList<Comment>(event.getComments());
-        model.addAttribute("comments", comments );
 		model.addAttribute("error_string", "Sorry, you don't have enough money for this ticket(s)!");
-        model.addAttribute("event",event);  
+        
         return "/event";
 	} 	
 
@@ -196,7 +194,7 @@ public class EventController {
 	Transaction trans = new Transaction(tickets, userBuyer, event);	
 	
 	transactionDao.save(trans);		
-
+    model.addAttribute("success_string", "You succesfully booked your tickets!");
 	return "/event";		
 
     }
