@@ -186,11 +186,11 @@ public class MainController {
     }
 
 
-    @RequestMapping(value = "/{username}", method = RequestMethod.GET)
+    @RequestMapping(value = "/profile/{username}", method = RequestMethod.GET)
     public String profile(Model model,@PathVariable("username") String username){//,HttpServletRequest request) {
         model.addAttribute("events",eventDao.findAll());
         model.addAttribute("imgUrl", "http://localhost:8080/event/image/");
-
+        model.addAttribute("profileUrl", "http://localhost:8080/myprofile/image/");
 	//lucene search for that user.
 	/*	
 	List<User> resultSet = null;

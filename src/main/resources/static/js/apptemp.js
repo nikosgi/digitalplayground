@@ -45,7 +45,21 @@ function showGreeting(message) {
 }
 
 $(function () {
-    $("form").on('submit', function (e) {
+    var btn = $("#myBtn");
+    var span = document.getElementsByClassName("close")[0];
+
+    $("#myBtn").click(function() {
+            $("#myModal").show();        
+
+            var x = document.getElementById("qty").value;
+            document.getElementById("demo").textContent = x;
+        });
+    $(".close").on('click',( function() {
+            $("#myModal").hide();
+        }));
+    
+
+    $("#comm").on('submit', function (e) {
         e.preventDefault();
     });
     $( "#send" ).click(function() { sendName(); });
@@ -59,4 +73,8 @@ $(function () {
             showGreeting(JSON.parse(greeting.body));
         });
     });
+
+
+  
+
 });

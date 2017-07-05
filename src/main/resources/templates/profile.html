@@ -25,28 +25,20 @@
             <div class="col-xs-4 left-side no-padding">
                 <div class="fb-profile">
                     <div class="profile-name">
-                        <p class="name">Nikolaos Gerontakis</p>
+                        <p class="name" th:text="${parent.name + ' ' + parent.surname}">Name</p>
                     </div>
-                    <img class="img-responsive img-circle" src="http://via.placeholder.com/250x250" alt="Profile image example"/>
+                    <img class="img-responsive img-circle" th:src="@{${profileUrl+ parent.user.id}}" alt="Profile image example"/>
                     <div class="row follow-message">
                         <div class="col-xs-6">
-                            <div class="follow" sec:authorize="isAnonymous()">
+                            <div class="follow" sec:authorize="isAuthenticated()">
                                 <i class="glyphicon glyphicon-user"></i>
                                 <a href="" class="msg">Follow</a>
                             </div>
-                            <div class="follow" sec:authorize="isAuthenticated()">
-                                <i class="glyphicon glyphicon-user"></i>
-                                <a href="" class="msg">Followers</a>
-                            </div>
                         </div>
                         <div class="col-xs-6">
-                            <div class="message" sec:authorize="isAnonymous()">
-                                <i class="glyphicon glyphicon-envelope"></i>
-                                <a href="" class="msg">Message</a>
-                            </div>
                             <div class="message" sec:authorize="isAuthenticated()">
                                 <i class="glyphicon glyphicon-envelope"></i>
-                                <a href="" class="msg">Messages</a>
+                                <a href="" class="msg">Message</a>
                             </div>
                         </div>
                     </div>
@@ -55,33 +47,20 @@
             <div class="col-xs-8 right-side">
                 <div class="outsite">
                 <div class="profile-userdetails">
-                    <ul class="nav">
+                    <ul class="user">
                         <li class="active">
-                            <a href="#">
-                                <i class="glyphicon glyphicon-home"></i>
-                                User Location </a>
-                        </li>
+                            <i class="glyphicon glyphicon-map-marker"></i>
+                            <span th:text="${parent.region+', '+ parent.country}"></span>
+                        </li><br/>
                         <li>
-                            <a href="#">
-                                <i class="glyphicon glyphicon-user"></i>
-                                Account Settings </a>
-                        </li>
+                            <i class="glyphicon glyphicon-gift"></i>
+                            <span th:text="${parent.birthDate}"></span>
+                        </li><br/>
                         <li>
-                            <a href="#" target="_blank">
-                                <i class="glyphicon glyphicon-ok"></i>
-                                Tasks </a>
+                            <i class="glyphicon glyphicon-phone"></i>
+                            <span th:text="${parent.getPhone()}"></span>
                         </li>
-                        <li>
-                            <a href="#">
-                                <i class="glyphicon glyphicon-flag"></i>
-                                Help </a>
-                        </li>
-                        <li>
-                            <a href="/logout">
-                <i class="glyphicon glyphicon-flag"></i>
-                Logout</a>
-            </li>
-            </ul>
+                    </ul>
                 </div>
                 </div>
             </div>
@@ -92,62 +71,27 @@
 
                 <div class="my-events">
                     <div class="event-header">
-                        <h3>My Events</h3>
+                        <h4>Events</h4>
                     </div>
-                    <div class="event-buttons btn-group btn-group-justified" role="group">
-                        <div class="btn-group" role="group"><button type="button" id="all-btn" class="btn btn-primary">All</button></div>
-                        <div class="btn-group" role="group"><button type="button" id="upcoming-btn" class="btn btn-success">Upcoming</button></div>
-                            <div class="btn-group" role="group"><button type="button" id="past-btn" class="btn btn-danger">Past</button></div>
-                    </div>
-                    
-                    <a class="list-quotes" id="all" href="/">
-                         <!-- Recommended size 360X360 -->
-                        <img class='img-responsive' alt="img" src="http://images.shape.mdpcdn.com/sites/shape.com/files/styles/story_detail/public/story/dating-a-younger-man-700_0.jpg?itok=VdKivCyT"/>
+                    <a th:each="event : ${events}" class="list-quotes coming" id="all" th:href="${'http://localhost:8080/event/' + event.id}">
+                        <img class='img-responsive' alt="img" th:src="${event.image != null} ? 'imgUrl+event.id': '/img/default-event.png'"/>
                         <div class="quotes">
                             <h1>Lorem ipsum dolor</h1>
-                            <span class="year">Date</span>    
-                            <span class="cat-name">Name</span>
-                            <p>read more</p>
+                            <span class="year" th:text="${event.date}">Date</span>    
+                            <span class="cat-name" th:text="${event.name}">Name</span>
+                            <p th:text="${event.description}">read more</p>
                             </div>
                     </a>
-                    <a class="list-quotes" id="past" href="/">
-                        <!-- Recommended size 360X360 -->
-                         <img class='img-responsive cover' alt="img" src="http://images.shape.mdpcdn.com/sites/shape.com/files/styles/story_detail/public/story/dating-a-younger-man-700_0.jpg?itok=VdKivCyT"/>
-                         <div class="quotes">
-                             <h1>Lasdf</h1>
-                             <span class="year">Date</span>
-                             <span class="cat-name">Name</span>
-                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. <span>...Read Mors</span>
-                            </p>
-                        </div>
-                    </a>
-                    
 
-
-                    <div th:each="event : ${events}">
-                        <div class="cuadro_intro_hover " style="background-color:#cccccc;">
-                            <p style="text-align:center; margin-top:20px;">
-                                <img th:src="@{${imgUrl+event.id}}"/>
-                            </p>
-                            <div class="caption">
-                                <div class="blur"></div>
-                                <div class="caption-text">
-                                    <h3 th:text="${event.name}" style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">THIS IS</h3>
-                                    <p th:text="${event.description}">Default Text</p>
-                                    <a class="btn btn-default" th:href="${'http://localhost:8080/event/' + event.id}"><span class="glyphicon glyphicon-plus"> INFO</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 
             </div>
             <div class="col-xs-4">
                 <div class="reminders">
                     <div class="reminders-header">
-                        <h3>Reminders</h3>
+                        <h4>Reminders</h4>
                     </div>
+                    <div class=""></div>
                 </div>
             </div>
         </div>
