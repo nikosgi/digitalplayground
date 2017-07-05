@@ -21,7 +21,7 @@ elem.click()
 time.sleep(5)
 
 elem = driver.find_element_by_xpath("//form[ @role= 'search']/input[ @name = 'srch-term']")
-elem.send_keys('park')
+elem.send_keys('petros')
 elem = driver.find_element_by_xpath("//form[ @role= 'search']/button[ @type= 'submit' ]")
 elem.click()
 

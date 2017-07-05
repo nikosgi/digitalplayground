@@ -65,12 +65,12 @@
             </div>
 
         </div><br/><br/>
-        <div class="row" id="events" style="display:none;">
+        <div class="row" id="events" style="display:block;">
 
             <div class="col-md-3">
                 <div class="back">
                 <section>
-                <h2 class="entry-title"><span>Filters</span> </h2>
+                <h2 class="entry-title" style="color:#222831;" ><span>Filters</span> </h2>
                 <hr/>
                     <form class="form-horizontal" method="post" name="signup" id="signup" enctype="multipart/form-data" th:object="${parent}" >
                         <br/>
@@ -118,46 +118,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="header">
-                            <h4>Availability</h4>
-                        </div><br/>
-                        <div class="form-group">
-                            
-                            <div class="row">
-                                <div class="col-xs-1 col-xs-offset-5">
-                                    <label class="control-label btn btn-success active "></label>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="input-group radio-button">
-                                        <input type="radio" class="form-control"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-1 col-xs-offset-5">
-                                    <label class="control-label btn btn-success active ">df</label>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="input-group radio-button">
-                                        <input type="radio" class="form-control"/>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <label class="control-label col-sm-3 btn btn-warning">Limited</label>
-                                <div class="input-group">
-                                    <input type="radio" class="form-control"/>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label class="control-label col-sm-3 btn btn-danger">Unavailable</label>
-                                <div class="input-group col-sm-9">
-                                    <input type="radio" class="form-control"/>
-                                </div>
-                            </div> 
-                            
-                        </div>-->
+
                     </form>
                     <div class="filter-button">
                         <button class="btn btn-primary filtering" id="filter">FIlter</button>
@@ -166,7 +127,7 @@
                 </div>
             </div>
             <div class="col-xs-9">
-                <h2 class="entry-title"><span>Results</span> </h2><hr/>
+                <h2 class="entry-title" style="color:#222831;"><span>Results</span> </h2><hr/>
                 <a th:each="event : ${events}" th:id="${'event_id' + event.id}" class="list-quotes" th:href="${'http://localhost:8080/event/' + event.id}">
                         <img class='img-responsive' alt="img" th:src="${event.image != null} ? 'imgUrl+event.id': '/img/default-event.png'"/>
                         <div class="quotes">
@@ -178,7 +139,7 @@
                     </a>
             </div>
         </div>
-        <div class="row" id="users" style="display:block;">
+        <div class="row" id="users" style="display:none;">
             <div class="col-xs-12 results">
                 <h2 class="entry-title"><span>Results</span> </h2><hr/>
                     <div class="row">
@@ -190,64 +151,6 @@
                                     </div>
                                     <div class="col-xs-8 col-md-8 section-box">
                                         <a th:href="${'http://localhost:8080/profile/' + user.username}" th:text="${user.parent.name+' '+user.parent.surname}">
-                                        Bootsnipp</a>
-                                       
-                                        <div class="row">
-                                            <div class="col-xs-1">
-                                                <span class="glyphicon glyphicon-map-marker"></span>
-                                            </div>
-                                            <div class="col-xs-11">
-                                                <p th:text="${user.parent.region+', '+user.parent.country}"></p>
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <div class="row rating-desc">
-                                            <div class="col-md-12">
-                                                <span class="glyphicon glyphicon-user"></span>
-                                                <span class="number"> 5 </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4" th:each="user : ${users}">
-                            <div class="well well-sm">
-                                <div class="row">
-                                    <div class="col-xs-4 col-md-4">
-                                        <img th:src="@{${'http://localhost:8080/myprofile/image/'+user.id}}" class="prof-img" />
-                                    </div>
-                                    <div class="col-xs-8 col-md-8 section-box">
-                                        <a href="/profile" th:text="${user.parent.name+' '+user.parent.surname}">
-                                        Bootsnipp</a>
-                                       
-                                        <div class="row">
-                                            <div class="col-xs-1">
-                                                <span class="glyphicon glyphicon-map-marker"></span>
-                                            </div>
-                                            <div class="col-xs-11">
-                                                <p th:text="${user.parent.region+', '+user.parent.country}"></p>
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <div class="row rating-desc">
-                                            <div class="col-md-12">
-                                                <span class="glyphicon glyphicon-user"></span>
-                                                <span class="number"> 5 </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4" th:each="user : ${users}">
-                            <div class="well well-sm">
-                                <div class="row">
-                                    <div class="col-xs-4 col-md-4">
-                                        <img th:src="@{${'http://localhost:8080/myprofile/image/'+user.id}}" class="prof-img" />
-                                    </div>
-                                    <div class="col-xs-8 col-md-8 section-box">
-                                        <a href="/profile" th:text="${user.parent.name+' '+user.parent.surname}">
                                         Bootsnipp</a>
                                        
                                         <div class="row">

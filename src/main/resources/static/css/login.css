@@ -34,7 +34,9 @@ form
     width: 300px;
 
 }
-
+.navbar form{
+    background:none;
+}
 form.login input[type="text"], form.login input[type="password"]
 {
     width: 100%;

@@ -116,7 +116,7 @@ public class MainController {
   	//out.println(auth.getDetails().toString() );        
 	
 
-        return "index";
+        return "login";
     }
 
 /*
@@ -188,20 +188,28 @@ public class MainController {
 
     @RequestMapping(value = "/profile/{username}", method = RequestMethod.GET)
     public String profile(Model model,@PathVariable("username") String username){//,HttpServletRequest request) {
-        model.addAttribute("events",eventDao.findAll());
         model.addAttribute("imgUrl", "http://localhost:8080/event/image/");
         model.addAttribute("profileUrl", "http://localhost:8080/myprofile/image/");
-	//lucene search for that user.
-	/*	
-	List<User> resultSet = null;
-	resultSet = search.userSearch(username);		 		
 	
-	User user = resultSet.get(0);
-	out.println(user.getUsername());
-	out.println("here");	
-	*/
-
-
+	Parent parent = generalService.parentFromUsername(username);
+	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	out.println(parent.getName());
+	User user = userDao.findByUsername(username);
+	model.addAttribute("parent",parent);	
+	model.addAttribute("birthDate", dateFormat.format(parent.getBirthDate()));
+	System.out.println(parent.getName());
+	Set<Transaction> transactions = user.getTransactions() ;
+	ArrayList<Event> events = new ArrayList<Event>();
+	if ( transactions.size() >= 0 ){
+		Event event = null;
+		Date eventDate = null;
+		for (Transaction trans : transactions){
+			event =  trans.getEvent();
+			eventDate = event.getDate();	
+			events.add(event);
+		}
+	}
+	model.addAttribute("events",events);
 ////////location
 	String ip="4.2.2.2";
 	ServerLocation location = serverLocationBo.getLocation(ip);
@@ -217,11 +225,7 @@ public class MainController {
 
 
 //////////parent
-	Parent parent = generalService.parentFromUsername(username);
-
-	out.println(parent.getName());
 	
-	model.addAttribute("parent",parent);	
 
 	
 
